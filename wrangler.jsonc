@@ -5,6 +5,7 @@
     "directory": "."
   },
   "routes": [
-    { "pattern": "chaochun.cc", "custom_domain": true }
+    { "pattern": "chaochun.cc", "custom_domain": true },
+    { "pattern": "www.chaochun.cc", "custom_domain": true }
   ]
 }
