@@ -1,0 +1,6 @@
+tmp/
+.DS_Store
+Thumbs.db
+.wrangler/
+.dev.vars
+node_modules/

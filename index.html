@@ -1,0 +1,924 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>超纯 · Chaochun</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #fbf9f4;
+        --ink: #1f1c18;
+        --dim: #8a8178;
+        --faint: #b0a794;
+        --accent: #3f6e5a;
+        --accent-warm: #c96f4a;
+        --yellow: #f5c518;
+        --line: #e8e2d6;
+        --card: #ffffff;
+        --grid: rgba(31, 28, 24, 0.03);
+        --note-rot: -2.5deg;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: var(--bg);
+        background-image:
+          linear-gradient(to right, var(--grid) 1px, transparent 1px),
+          linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+        background-size: 36px 36px;
+        color: var(--ink);
+        font-family:
+          "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+          system-ui, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: clip;
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrap {
+        width: 100%;
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 clamp(20px, 4vw, 48px);
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 24px 0;
+        border-bottom: 1.5px solid var(--ink);
+      }
+      .wordmark {
+        font-family: "Noto Serif SC", "Songti SC", serif;
+        font-weight: 900;
+        font-size: 17px;
+      }
+      .wordmark span {
+        color: var(--dim);
+        font-weight: 400;
+        font-size: 13px;
+        margin-left: 8px;
+        font-family: "Noto Sans SC", sans-serif;
+      }
+      .domain {
+        font-size: 12px;
+        color: var(--faint);
+        font-family: ui-monospace, "SF Mono", Consolas, monospace;
+      }
+
+      main {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr 1.15fr;
+        gap: clamp(32px, 4vw, 56px);
+        align-items: center;
+        padding: clamp(40px, 7vh, 80px) 0;
+        min-width: 0;
+        max-width: 100%;
+      }
+      main > .text,
+      main > .stage {
+        min-width: 0;
+        max-width: 100%;
+      }
+      @media (max-width: 1100px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+        .text {
+          width: 100%;
+        }
+      }
+
+      .greeting {
+        font-size: 15px;
+        color: var(--dim);
+        margin-bottom: 24px;
+      }
+      h1 {
+        font-family: "Noto Serif SC", "Songti SC", "STSong", serif;
+        font-size: clamp(25px, 3.8vw, 42px);
+        font-weight: 900;
+        line-height: 1.45;
+        letter-spacing: 0.01em;
+      }
+      h1 .line {
+        white-space: nowrap;
+      }
+      h1 .u {
+        text-decoration: underline;
+        text-decoration-color: var(--yellow);
+        text-decoration-thickness: 0.32em;
+        text-underline-offset: -0.12em;
+        text-decoration-skip-ink: none;
+      }
+      .tagline {
+        margin-top: 28px;
+        font-size: 16px;
+        color: var(--dim);
+        line-height: 2;
+        max-width: 30em;
+      }
+      .findme {
+        margin-top: 40px;
+        padding: 18px 22px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        max-width: 440px;
+      }
+      .findme .hint {
+        font-size: 13px;
+        color: var(--faint);
+        margin-bottom: 12px;
+      }
+      .findme .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 22px;
+      }
+      .findme a {
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 500;
+        border-bottom: 1px solid transparent;
+      }
+      .findme a:hover {
+        border-bottom-color: var(--accent);
+      }
+      .findme a span {
+        color: var(--faint);
+        font-weight: 400;
+        font-size: 13px;
+        margin-left: 4px;
+      }
+      @media (max-width: 1100px) {
+        .findme {
+          max-width: none;
+          width: 100%;
+        }
+      }
+
+      /* ---------- 舞台：便签 + 人物 ---------- */
+      .stage {
+        display: flex;
+        justify-content: center;
+      }
+      /* 热区放在不动的 note-wrap 上：便签大幅位移时鼠标不会"滑出"导致来回抖动 */
+      .note-wrap {
+        position: relative;
+        cursor: pointer;
+      }
+      .note-wrap .note {
+        pointer-events: none;
+      }
+      @media (max-width: 1100px) and (min-width: 641px) {
+        .stage {
+          justify-content: flex-start;
+        }
+      }
+      @media (max-width: 640px) {
+        .wrap {
+          padding-inline: 16px;
+          overflow-x: clip;
+        }
+        h1 .line {
+          white-space: normal;
+        }
+        .stage {
+          justify-content: flex-start;
+          overflow-x: clip;
+        }
+      }
+
+      .note {
+        position: relative;
+        z-index: 1;
+        width: min(320px, 100%);
+        aspect-ratio: 1 / 1.05;
+        background: linear-gradient(
+          175deg,
+          #fff6a8 0%,
+          #ffed85 60%,
+          #fbe878 100%
+        );
+        border-radius: 3px;
+        box-shadow:
+          0 14px 30px rgba(31, 28, 24, 0.14),
+          0 2px 6px rgba(31, 28, 24, 0.08);
+        transform: rotate(var(--note-rot));
+        padding: 44px 28px 24px;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        transition:
+          transform 0.6s cubic-bezier(0.3, 1.35, 0.5, 1),
+          box-shadow 0.5s ease;
+      }
+      /* 便签被「抽走」：顺时针转、右上角下沉，人物的手肘失去支撑 */
+      .note-wrap.pulled .note {
+        /* 幅度加大：右上角明显下沉并向左滑开，手肘下方瞬间悬空 */
+        transform: rotate(7deg) translate(-26px, 18px);
+        transition:
+          transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.18),
+          box-shadow 0.3s ease;
+        box-shadow:
+          0 26px 44px rgba(31, 28, 24, 0.18),
+          0 4px 10px rgba(31, 28, 24, 0.08);
+      }
+      @media (max-width: 640px) {
+        .note {
+          width: min(240px, 62vw);
+          padding: 36px 20px 18px;
+        }
+        .note .n-mid {
+          font-size: 18px !important;
+        }
+        .note svg {
+          width: 110px;
+        }
+      }
+      @media (min-width: 641px) and (max-width: 1100px) {
+        .note {
+          width: min(280px, 100%);
+        }
+        .note .n-mid {
+          font-size: 21px !important;
+        }
+      }
+      .note::before {
+        content: "";
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        width: 96px;
+        height: 28px;
+        transform: translateX(-50%) rotate(2deg);
+        background: rgba(255, 255, 255, 0.55);
+        border-left: 1px dashed rgba(31, 28, 24, 0.12);
+        border-right: 1px dashed rgba(31, 28, 24, 0.12);
+        box-shadow: 0 2px 4px rgba(31, 28, 24, 0.06);
+      }
+      .note .n-mid {
+        font-family: "Noto Serif SC", "Songti SC", serif;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 1.65;
+        margin-top: 18px;
+      }
+      .note .n-mid .u {
+        text-decoration: underline;
+        text-decoration-color: var(--accent-warm);
+        text-decoration-thickness: 3px;
+        text-underline-offset: 4px;
+      }
+      .note svg {
+        margin-top: auto;
+      }
+      .note .n-sign {
+        margin-top: 10px;
+        font-size: 13px;
+        color: rgba(31, 28, 24, 0.55);
+        text-align: right;
+      }
+
+      /* ---------- 人物 ----------
+     素材是白底图，用 multiply 融进米色网格底和黄色便签。
+     注意：blend 放在容器本身，内部两张图正常叠放。 */
+      .char {
+        position: absolute;
+        z-index: 2;
+        pointer-events: none;
+        mix-blend-mode: multiply;
+        transform-origin: 55% 91%; /* 脚底附近，踉跄围绕双脚发生 */
+        animation: breathe 4.2s ease-in-out infinite;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .char.ready.prepared {
+        opacity: 1;
+      }
+      /* 白底已在浏览器端抠成透明：取消 multiply，人物真正盖在便签和文字之上，并恢复投影 */
+      .char.keyed {
+        mix-blend-mode: normal;
+        filter: drop-shadow(0 8px 12px rgba(31, 28, 24, 0.14));
+      }
+      .char img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        user-select: none;
+      }
+      .char .trip {
+        opacity: 0;
+        transform: translate(-2%, 3%);
+      }
+
+      /* 站着靠时只做极轻的呼吸，避免手肘离开便签角 */
+      @keyframes breathe {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-1.5px);
+        }
+      }
+
+      /* 失去支撑：先往便签方向一沉（倚靠图）→ 切换踉跄图 → 来回晃两下站稳 */
+      .char.fall {
+        /* 比便签晚 90ms 才开始掉：先看到支撑点消失，再看到人失衡 */
+        animation:
+          fall 1s cubic-bezier(0.3, 0.7, 0.35, 1) 0.09s both,
+          sway 2.6s ease-in-out 1.09s infinite;
+      }
+      .char.fall .lean {
+        animation: leanOut 1s linear 0.09s both;
+      }
+      .char.fall .trip {
+        animation: tripIn 1s linear 0.09s both;
+      }
+      @keyframes fall {
+        0% {
+          transform: rotate(0) translate(0, 0);
+        }
+        12% {
+          transform: rotate(-6deg) translate(-6px, 6px);
+        }
+        30% {
+          transform: rotate(-10deg) translate(-16px, 8px);
+        }
+        52% {
+          transform: rotate(4deg) translate(-8px, 2px);
+        }
+        72% {
+          transform: rotate(-2.5deg) translate(-10px, 3px);
+        }
+        88% {
+          transform: rotate(1deg) translate(-9px, 2px);
+        }
+        100% {
+          transform: rotate(0) translate(-9px, 2px);
+        }
+      }
+      @keyframes sway {
+        0%,
+        100% {
+          transform: rotate(0) translate(-9px, 2px);
+        }
+        50% {
+          transform: rotate(-1.6deg) translate(-9px, 2px);
+        }
+      }
+      @keyframes leanOut {
+        0%,
+        11% {
+          opacity: 1;
+        }
+        15%,
+        100% {
+          opacity: 0;
+        }
+      }
+      @keyframes tripIn {
+        0%,
+        11% {
+          opacity: 0;
+        }
+        15%,
+        100% {
+          opacity: 1;
+        }
+      }
+
+      /* 便签回来：重新靠上去，轻微回弹 */
+      .char.recover {
+        animation: recover 0.75s cubic-bezier(0.3, 0.8, 0.3, 1) forwards;
+      }
+      .char.recover .trip {
+        animation: tripOut 0.75s linear forwards;
+      }
+      .char.recover .lean {
+        animation: leanIn 0.75s linear forwards;
+      }
+      @keyframes recover {
+        0% {
+          transform: rotate(-4deg) translate(-8px, 3px);
+        }
+        40% {
+          transform: rotate(2deg) translate(1px, -2px);
+        }
+        68% {
+          transform: rotate(-0.8deg) translate(0, 0);
+        }
+        100% {
+          transform: rotate(0) translate(0, 0);
+        }
+      }
+      @keyframes tripOut {
+        0%,
+        22% {
+          opacity: 1;
+        }
+        28%,
+        100% {
+          opacity: 0;
+        }
+      }
+      @keyframes leanIn {
+        0%,
+        22% {
+          opacity: 0;
+        }
+        28%,
+        100% {
+          opacity: 1;
+        }
+      }
+
+      /* 对话气泡（不参与 multiply，单独放在 note-wrap 里） */
+      .bubble {
+        position: absolute;
+        z-index: 3;
+        pointer-events: none;
+        padding: 6px 12px;
+        background: #fff;
+        border: 1.5px solid var(--ink);
+        border-radius: 14px;
+        font-family: "Noto Serif SC", serif;
+        font-weight: 700;
+        font-size: 15px;
+        white-space: nowrap;
+        opacity: 0;
+        transform: translateY(6px) scale(0.9);
+        transform-origin: bottom right;
+        transition:
+          opacity 0.18s ease,
+          transform 0.25s cubic-bezier(0.3, 1.5, 0.5, 1);
+      }
+      .bubble::after {
+        content: "";
+        position: absolute;
+        right: 14px;
+        bottom: -7px;
+        width: 10px;
+        height: 10px;
+        background: #fff;
+        border-right: 1.5px solid var(--ink);
+        border-bottom: 1.5px solid var(--ink);
+        transform: rotate(45deg);
+      }
+      .bubble.show {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .char,
+        .char.fall,
+        .char.recover {
+          animation: none !important;
+        }
+        .char.fall .lean {
+          animation: none;
+          opacity: 0;
+        }
+        .char.fall .trip {
+          animation: none;
+          opacity: 1;
+        }
+        .char.recover .lean,
+        .char.recover .trip {
+          animation: none;
+        }
+        .note {
+          transition: none;
+        }
+      }
+
+      footer {
+        padding: 20px 0;
+        font-size: 12px;
+        color: var(--faint);
+        border-top: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="wordmark">hi超纯<span>Chaochun</span></div>
+        <div class="domain">chaochun.cc</div>
+      </header>
+      <main>
+        <div class="text">
+          <p class="greeting">你好，我是超纯。</p>
+          <h1>
+            <span class="line">指向世界的信息会过期，</span><br /><span
+              class="line"
+              >但指向自己的信息，</span
+            ><br /><span class="line">会产生<span class="u">复利</span>。</span>
+          </h1>
+          <p class="tagline">用 AI 解决问题，也把方法分享给你们。</p>
+          <div class="findme">
+            <p class="hint">在这些地方可以找到我：</p>
+            <div class="links">
+              <a
+                href="https://www.xiaohongshu.com/user/profile/6163ad690000000002026b33"
+                target="_blank"
+                rel="noopener noreferrer"
+                >小红书<span>hi超纯</span></a
+              >
+              <a
+                href="https://space.bilibili.com/297551734"
+                target="_blank"
+                rel="noopener noreferrer"
+                >哔哩哔哩<span>hi超纯</span></a
+              >
+              <a
+                href="https://www.douyin.com/user/MS4wLjABAAAA3s9_EFn_Xkfzx8TMBtHKNfp-sznih1sfiyLIFrJ-oLQ"
+                target="_blank"
+                rel="noopener noreferrer"
+                >抖音<span>hi超纯</span></a
+              >
+              <a
+                href="https://x.com/hichaochun"
+                target="_blank"
+                rel="noopener noreferrer"
+                >X<span>@hichaochun</span></a
+              >
+              <a
+                href="https://github.com/dulk-dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                >GitHub<span>dulk-dev</span></a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="stage">
+          <div class="note-wrap" id="noteWrap">
+            <div class="note" id="note">
+              <p class="n-mid">
+                复利曲线开始都很平，<br />所以<span class="u">先沉淀着</span>。
+              </p>
+              <svg
+                width="150"
+                height="48"
+                viewBox="0 0 150 48"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M4 42 C 50 41, 90 34, 146 5"
+                  stroke="#3F6E5A"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                />
+                <circle cx="146" cy="5" r="3.5" fill="#C96F4A" />
+              </svg>
+              <p class="n-sign">—— 超纯</p>
+            </div>
+            <div
+              class="char"
+              id="char"
+              role="img"
+              aria-label="超纯的 IP 形象：戴黑色渔夫帽和方框眼镜的小人，手肘靠在便签右上角"
+            >
+              <img
+                class="lean"
+                src="assets/char-lean.png"
+                alt=""
+              />
+              <img
+                class="trip"
+                src="assets/char-trip.png"
+                alt=""
+              />
+            </div>
+            <div class="bubble" id="bubble">诶——！</div>
+          </div>
+        </div>
+      </main>
+      <footer>
+        <span>© 2026 Chaochun</span>
+        <span>如果想法不能被执行，就会被雪藏。</span>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        // 倚靠图里「手肘落点」在图片中的相对坐标（前臂下沿、垂下的手左侧）
+        // 想微调贴合度，只改这两个数即可
+        var ELBOW_X = 0.258;
+        var ELBOW_Y = 0.408;
+        var IMG_RATIO = 864 / 1152; // 宽 / 高
+        var VISIBLE_RIGHT = 0.66; // 人物可见部分的最右侧（用于给舞台留空间）
+        var HEAD_TOP = 0.07; // 帽顶在图中的相对高度
+
+        var wrap = document.getElementById("noteWrap");
+        var note = document.getElementById("note");
+        var ch = document.getElementById("char");
+        var bubble = document.getElementById("bubble");
+
+        function noteAngle() {
+          var v = getComputedStyle(document.documentElement).getPropertyValue(
+            "--note-rot",
+          );
+          return ((parseFloat(v) || -2.5) * Math.PI) / 180;
+        }
+
+        function layout() {
+          var narrow = window.innerWidth <= 640;
+          var scaleK = narrow ? 1.55 : 1.9; // 人物高度 = 便签宽 × k
+          var stageEl = wrap.closest(".stage");
+          var avail = stageEl
+            ? stageEl.clientWidth
+            : wrap.parentElement.clientWidth;
+          var a = noteAngle();
+          var cosA = Math.cos(a),
+            sinA = Math.sin(a);
+          var noteAR = 1.05; // 与 CSS aspect-ratio: 1 / 1.05 一致
+
+          function fitNoteWidth(budget) {
+            var lo = 160,
+              hi = Math.max(161, budget);
+            for (var i = 0; i < 16; i++) {
+              var trial = (lo + hi) / 2;
+              var tH = trial * noteAR;
+              var tCornerX = trial / 2 + (trial / 2) * cosA - (-tH / 2) * sinA;
+              var tW = trial * scaleK * IMG_RATIO;
+              var visR = tCornerX - ELBOW_X * tW + tW * VISIBLE_RIGHT;
+              if (visR > budget) hi = trial;
+              else lo = trial;
+            }
+            return lo;
+          }
+          function rotatedLeftOverhang(tw, th) {
+            var cx = tw / 2,
+              cy = th / 2;
+            var pts = [
+              [0, 0],
+              [tw, 0],
+              [0, th],
+              [tw, th],
+            ];
+            var minX = 0;
+            for (var p = 0; p < 4; p++) {
+              var rx = pts[p][0] - cx,
+                ry = pts[p][1] - cy;
+              var x = cx + rx * cosA - ry * sinA;
+              if (x < minX) minX = x;
+            }
+            return Math.max(0, -minX);
+          }
+
+          // 窄屏：人物可见右缘对齐内容右缘；便签旋转探出的左侧用 margin 补回
+          var leftShift = 0;
+          if (narrow && avail) {
+            var fitted = fitNoteWidth(avail);
+            leftShift = rotatedLeftOverhang(fitted, fitted * noteAR);
+            if (leftShift > 0.5) fitted = fitNoteWidth(avail - leftShift);
+            if (Math.abs((parseFloat(note.style.width) || 0) - fitted) > 0.5) {
+              note.style.width = fitted + "px";
+            }
+          } else if (note.style.width) {
+            note.style.width = "";
+          }
+
+          var W = note.offsetWidth,
+            H = note.offsetHeight;
+          if (!W || !H) return;
+          var dx = W / 2,
+            dy = -H / 2;
+          var cornerX = W / 2 + dx * cosA - dy * sinA;
+          var cornerY = H / 2 + dx * sinA + dy * cosA;
+
+          var h = W * scaleK,
+            w = h * IMG_RATIO;
+          var left = cornerX - ELBOW_X * w;
+          var top = cornerY - ELBOW_Y * h;
+
+          ch.style.width = w + "px";
+          ch.style.height = h + "px";
+          ch.style.left = left + "px";
+          ch.style.top = top + "px";
+
+          // 给人物留出右侧和上方空间，避免和标题/边缘打架
+          var overhangR = Math.max(0, left + w * VISIBLE_RIGHT - W);
+          var overhangT = Math.max(0, -(top + HEAD_TOP * h));
+          if (narrow) {
+            wrap.style.marginRight = "0";
+            wrap.style.marginLeft = leftShift ? leftShift + "px" : "0";
+          } else {
+            wrap.style.marginRight = overhangR + "px";
+            wrap.style.marginLeft = "";
+          }
+          wrap.style.marginTop = overhangT + "px";
+
+          // 气泡放在人物头部左上
+          bubble.style.left = left + w * 0.02 + "px";
+          bubble.style.top = top + h * 0.06 + "px";
+
+          ch.classList.add("ready");
+        }
+
+        // ---------- 交互状态机 ----------
+        var pulled = false,
+          bubbleTimer = null;
+
+        function say(text, ms) {
+          clearTimeout(bubbleTimer);
+          bubble.textContent = text;
+          bubble.classList.add("show");
+          if (ms)
+            bubbleTimer = setTimeout(function () {
+              bubble.classList.remove("show");
+            }, ms);
+        }
+
+        function restart(el, cls) {
+          el.classList.remove("fall", "recover");
+          void el.offsetWidth; // 重新触发动画
+          el.classList.add(cls);
+        }
+
+        function pull() {
+          if (pulled) return;
+          pulled = true;
+          wrap.classList.add("pulled");
+          restart(ch, "fall");
+          setTimeout(function () {
+            if (pulled) say("诶——！");
+          }, 120);
+        }
+
+        function release() {
+          if (!pulled) return;
+          pulled = false;
+          wrap.classList.remove("pulled");
+          restart(ch, "recover");
+          say("呼…还好", 1100);
+          setTimeout(function () {
+            if (!pulled) ch.classList.remove("recover");
+          }, 800);
+        }
+
+        var canHover = window.matchMedia("(hover: hover)").matches;
+        if (canHover) {
+          wrap.addEventListener("mouseenter", pull);
+          wrap.addEventListener("mouseleave", release);
+        } else {
+          wrap.addEventListener("click", function () {
+            pulled ? release() : pull();
+          });
+        }
+
+        // ---------- 白底抠图 ----------
+        // 从图片四周做洪水填充，只去掉和边缘连通的白色背景；
+        // 被黑色描边包住的白色（鞋底、眼白、对话气泡）不会被误抠。
+        function keyWhite(src) {
+          return new Promise(function (resolve, reject) {
+            var im = new Image();
+            im.crossOrigin = "anonymous";
+            im.onload = function () {
+              try {
+                var w = im.naturalWidth,
+                  h = im.naturalHeight;
+                var c = document.createElement("canvas");
+                c.width = w;
+                c.height = h;
+                var ctx = c.getContext("2d", { willReadFrequently: true });
+                ctx.drawImage(im, 0, 0);
+                var data = ctx.getImageData(0, 0, w, h),
+                  p = data.data;
+                var N = w * h,
+                  seen = new Uint8Array(N),
+                  stack = new Int32Array(N),
+                  sp = 0;
+                var T = 228;
+                function isBg(i) {
+                  var o = i * 4;
+                  return p[o] > T && p[o + 1] > T && p[o + 2] > T;
+                }
+                function seed(i) {
+                  if (!seen[i] && isBg(i)) {
+                    seen[i] = 1;
+                    stack[sp++] = i;
+                  }
+                }
+                for (var x = 0; x < w; x++) {
+                  seed(x);
+                  seed((h - 1) * w + x);
+                }
+                for (var y = 0; y < h; y++) {
+                  seed(y * w);
+                  seed(y * w + w - 1);
+                }
+                while (sp) {
+                  var i = stack[--sp],
+                    ix = i % w;
+                  p[i * 4 + 3] = 0;
+                  if (ix > 0) seed(i - 1);
+                  if (ix < w - 1) seed(i + 1);
+                  if (i >= w) seed(i - w);
+                  if (i < N - w) seed(i + w);
+                }
+                // 边缘抗锯齿：贴着背景的浅色像素做半透明并去白边
+                for (var j = 0; j < N; j++) {
+                  if (seen[j]) continue;
+                  var jx = j % w;
+                  var nb =
+                    (jx > 0 && seen[j - 1]) ||
+                    (jx < w - 1 && seen[j + 1]) ||
+                    (j >= w && seen[j - w]) ||
+                    (j < N - w && seen[j + w]);
+                  if (!nb) continue;
+                  var o = j * 4,
+                    m = Math.min(p[o], p[o + 1], p[o + 2]);
+                  if (m <= 150) continue;
+                  var a = Math.max(0.05, Math.min(1, (255 - m) / 105));
+                  for (var k = 0; k < 3; k++)
+                    p[o + k] = Math.max(
+                      0,
+                      Math.min(255, (p[o + k] - 255 * (1 - a)) / a),
+                    );
+                  p[o + 3] = Math.round(a * 255);
+                }
+                ctx.putImageData(data, 0, 0);
+                resolve(c.toDataURL("image/png"));
+              } catch (e) {
+                reject(e);
+              }
+            };
+            im.onerror = reject;
+            im.src = src;
+          });
+        }
+
+        var prepTimer = setTimeout(function () {
+          ch.classList.add("prepared");
+        }, 4000);
+        Promise.all(
+          Array.prototype.map.call(ch.querySelectorAll("img"), function (img) {
+            return keyWhite(img.src).then(function (url) {
+              img.src = url;
+            });
+          }),
+        )
+          .then(function () {
+            ch.classList.add("keyed");
+          })
+          .catch(function (e) {
+            // 跨域受限时退回 multiply 融合
+            console.warn("抠图失败，使用 multiply 兜底：", e);
+          })
+          .then(function () {
+            clearTimeout(prepTimer);
+            ch.classList.add("prepared");
+          });
+
+        // 两张图都加载完再显示，避免切换时闪白
+        var imgs = ch.querySelectorAll("img"),
+          left = imgs.length;
+        imgs.forEach(function (img) {
+          if (img.complete) {
+            if (--left === 0) layout();
+          } else {
+            img.addEventListener("load", function () {
+              if (--left === 0) layout();
+            });
+            img.addEventListener("error", function () {
+              if (--left === 0) layout();
+            });
+          }
+        });
+
+        layout();
+        window.addEventListener("resize", layout);
+        if (document.fonts && document.fonts.ready)
+          document.fonts.ready.then(layout);
+        if (window.ResizeObserver) new ResizeObserver(layout).observe(note);
+      })();
+    </script>
+  </body>
+</html>
