@@ -4,12 +4,45 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>超纯 · Chaochun</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" href="fonts/noto-serif-sc-900.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/noto-sans-sc-400.woff2" as="font" type="font/woff2" crossorigin />
     <style>
+      @font-face {
+        font-family: "Noto Serif SC";
+        font-style: normal;
+        font-weight: 900;
+        font-display: swap;
+        src: url("fonts/noto-serif-sc-900.woff2") format("woff2");
+        unicode-range: U+0020-007E, U+00A9, U+00B7, U+2014, U+2026, U+3002, U+4E0A, U+4E0D, U+4E16, U+4E5F, U+4E66, U+4E9B, U+4EA7, U+4EAB, U+4EBA, U+4EE5, U+4EEC, U+4F1A, U+4F46, U+4F60, U+4FBF, U+4FE1, U+5148, U+51B3, U+5206, U+5229, U+5230, U+53EF, U+53F3, U+5411, U+547C, U+548C, U+54D4, U+54E9, U+5728, U+5730, U+590D, U+592B, U+597D, U+5982, U+59CB, U+5C0F, U+5C31, U+5DF1, U+5E3D, U+5E73, U+5F00, U+5F62, U+5F88, U+606F, U+60F3, U+6211, U+6234, U+6240, U+624B, U+6267, U+627E, U+628A, U+6296, U+6307, U+65B9, U+662F, U+66F2, U+671F, U+679C, U+6846, U+6C89, U+6CD5, U+6DC0, U+6E14, U+751F, U+7528, U+754C, U+7684, U+773C, U+7740, U+7B7E, U+7EA2, U+7EAF, U+7EBF, U+7ED9, U+8098, U+80FD, U+81EA, U+8272, U+85CF, U+884C, U+88AB, U+89D2, U+89E3, U+8BF6, U+8C61, U+8D85, U+8FC7, U+8FD8-8FD9, U+90FD, U+955C, U+95EE, U+96EA, U+9760, U+97F3, U+9898, U+9ED1, U+FF01, U+FF0C, U+FF1A;
+      }
+
+      @font-face {
+        font-family: "Noto Serif SC";
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url("fonts/noto-serif-sc-700.woff2") format("woff2");
+        unicode-range: U+0020-007E, U+00A9, U+00B7, U+2014, U+2026, U+3002, U+4E0A, U+4E0D, U+4E16, U+4E5F, U+4E66, U+4E9B, U+4EA7, U+4EAB, U+4EBA, U+4EE5, U+4EEC, U+4F1A, U+4F46, U+4F60, U+4FBF, U+4FE1, U+5148, U+51B3, U+5206, U+5229, U+5230, U+53EF, U+53F3, U+5411, U+547C, U+548C, U+54D4, U+54E9, U+5728, U+5730, U+590D, U+592B, U+597D, U+5982, U+59CB, U+5C0F, U+5C31, U+5DF1, U+5E3D, U+5E73, U+5F00, U+5F62, U+5F88, U+606F, U+60F3, U+6211, U+6234, U+6240, U+624B, U+6267, U+627E, U+628A, U+6296, U+6307, U+65B9, U+662F, U+66F2, U+671F, U+679C, U+6846, U+6C89, U+6CD5, U+6DC0, U+6E14, U+751F, U+7528, U+754C, U+7684, U+773C, U+7740, U+7B7E, U+7EA2, U+7EAF, U+7EBF, U+7ED9, U+8098, U+80FD, U+81EA, U+8272, U+85CF, U+884C, U+88AB, U+89D2, U+89E3, U+8BF6, U+8C61, U+8D85, U+8FC7, U+8FD8-8FD9, U+90FD, U+955C, U+95EE, U+96EA, U+9760, U+97F3, U+9898, U+9ED1, U+FF01, U+FF0C, U+FF1A;
+      }
+
+      @font-face {
+        font-family: "Noto Sans SC";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("fonts/noto-sans-sc-400.woff2") format("woff2");
+        unicode-range: U+0020-007E, U+00A9, U+00B7, U+2014, U+2026, U+3002, U+4E0A, U+4E0D, U+4E16, U+4E5F, U+4E66, U+4E9B, U+4EA7, U+4EAB, U+4EBA, U+4EE5, U+4EEC, U+4F1A, U+4F46, U+4F60, U+4FBF, U+4FE1, U+5148, U+51B3, U+5206, U+5229, U+5230, U+53EF, U+53F3, U+5411, U+547C, U+548C, U+54D4, U+54E9, U+5728, U+5730, U+590D, U+592B, U+597D, U+5982, U+59CB, U+5C0F, U+5C31, U+5DF1, U+5E3D, U+5E73, U+5F00, U+5F62, U+5F88, U+606F, U+60F3, U+6211, U+6234, U+6240, U+624B, U+6267, U+627E, U+628A, U+6296, U+6307, U+65B9, U+662F, U+66F2, U+671F, U+679C, U+6846, U+6C89, U+6CD5, U+6DC0, U+6E14, U+751F, U+7528, U+754C, U+7684, U+773C, U+7740, U+7B7E, U+7EA2, U+7EAF, U+7EBF, U+7ED9, U+8098, U+80FD, U+81EA, U+8272, U+85CF, U+884C, U+88AB, U+89D2, U+89E3, U+8BF6, U+8C61, U+8D85, U+8FC7, U+8FD8-8FD9, U+90FD, U+955C, U+95EE, U+96EA, U+9760, U+97F3, U+9898, U+9ED1, U+FF01, U+FF0C, U+FF1A;
+      }
+
+      @font-face {
+        font-family: "Noto Sans SC";
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("fonts/noto-sans-sc-500.woff2") format("woff2");
+        unicode-range: U+0020-007E, U+00A9, U+00B7, U+2014, U+2026, U+3002, U+4E0A, U+4E0D, U+4E16, U+4E5F, U+4E66, U+4E9B, U+4EA7, U+4EAB, U+4EBA, U+4EE5, U+4EEC, U+4F1A, U+4F46, U+4F60, U+4FBF, U+4FE1, U+5148, U+51B3, U+5206, U+5229, U+5230, U+53EF, U+53F3, U+5411, U+547C, U+548C, U+54D4, U+54E9, U+5728, U+5730, U+590D, U+592B, U+597D, U+5982, U+59CB, U+5C0F, U+5C31, U+5DF1, U+5E3D, U+5E73, U+5F00, U+5F62, U+5F88, U+606F, U+60F3, U+6211, U+6234, U+6240, U+624B, U+6267, U+627E, U+628A, U+6296, U+6307, U+65B9, U+662F, U+66F2, U+671F, U+679C, U+6846, U+6C89, U+6CD5, U+6DC0, U+6E14, U+751F, U+7528, U+754C, U+7684, U+773C, U+7740, U+7B7E, U+7EA2, U+7EAF, U+7EBF, U+7ED9, U+8098, U+80FD, U+81EA, U+8272, U+85CF, U+884C, U+88AB, U+89D2, U+89E3, U+8BF6, U+8C61, U+8D85, U+8FC7, U+8FD8-8FD9, U+90FD, U+955C, U+95EE, U+96EA, U+9760, U+97F3, U+9898, U+9ED1, U+FF01, U+FF0C, U+FF1A;
+      }
+
       :root {
         --bg: #fbf9f4;
         --ink: #1f1c18;
@@ -43,6 +76,7 @@
         flex-direction: column;
         overflow-x: clip;
         -webkit-font-smoothing: antialiased;
+        font-synthesis: none;
       }
       .wrap {
         width: 100%;
@@ -296,13 +330,12 @@
       }
 
       /* ---------- 人物 ----------
-     素材是白底图，用 multiply 融进米色网格底和黄色便签。
-     注意：blend 放在容器本身，内部两张图正常叠放。 */
+     素材是透明底，盖在便签上。投影加在容器上，内部两张图正常叠放。 */
       .char {
         position: absolute;
         z-index: 2;
         pointer-events: none;
-        mix-blend-mode: multiply;
+        filter: drop-shadow(0 8px 12px rgba(31, 28, 24, 0.14));
         transform-origin: 55% 91%; /* 脚底附近，踉跄围绕双脚发生 */
         animation: breathe 4.2s ease-in-out infinite;
         opacity: 0;
@@ -310,11 +343,6 @@
       }
       .char.ready.prepared {
         opacity: 1;
-      }
-      /* 白底已在浏览器端抠成透明：取消 multiply，人物真正盖在便签和文字之上，并恢复投影 */
-      .char.keyed {
-        mix-blend-mode: normal;
-        filter: drop-shadow(0 8px 12px rgba(31, 28, 24, 0.14));
       }
       .char img {
         position: absolute;
@@ -604,16 +632,28 @@
               role="img"
               aria-label="超纯的 IP 形象：戴黑色渔夫帽和方框眼镜的小人，手肘靠在便签右上角"
             >
-              <img
-                class="lean"
-                src="assets/char-lean.png"
-                alt=""
-              />
-              <img
-                class="trip"
-                src="assets/char-trip.png"
-                alt=""
-              />
+              <picture>
+                <source srcset="assets/char-lean.webp" type="image/webp" />
+                <img
+                  class="lean"
+                  src="assets/char-lean.png"
+                  alt=""
+                  width="960"
+                  height="1280"
+                  fetchpriority="high"
+                />
+              </picture>
+              <picture>
+                <source srcset="assets/char-trip.webp" type="image/webp" />
+                <img
+                  class="trip"
+                  src="assets/char-trip.png"
+                  alt=""
+                  width="960"
+                  height="1280"
+                  decoding="async"
+                />
+              </picture>
             </div>
             <div class="bubble" id="bubble">诶——！</div>
           </div>
@@ -793,122 +833,23 @@
           });
         }
 
-        // ---------- 白底抠图 ----------
-        // 从图片四周做洪水填充，只去掉和边缘连通的白色背景；
-        // 被黑色描边包住的白色（鞋底、眼白、对话气泡）不会被误抠。
-        function keyWhite(src) {
-          return new Promise(function (resolve, reject) {
-            var im = new Image();
-            im.crossOrigin = "anonymous";
-            im.onload = function () {
-              try {
-                var w = im.naturalWidth,
-                  h = im.naturalHeight;
-                var c = document.createElement("canvas");
-                c.width = w;
-                c.height = h;
-                var ctx = c.getContext("2d", { willReadFrequently: true });
-                ctx.drawImage(im, 0, 0);
-                var data = ctx.getImageData(0, 0, w, h),
-                  p = data.data;
-                var N = w * h,
-                  seen = new Uint8Array(N),
-                  stack = new Int32Array(N),
-                  sp = 0;
-                var T = 228;
-                function isBg(i) {
-                  var o = i * 4;
-                  return p[o] > T && p[o + 1] > T && p[o + 2] > T;
-                }
-                function seed(i) {
-                  if (!seen[i] && isBg(i)) {
-                    seen[i] = 1;
-                    stack[sp++] = i;
-                  }
-                }
-                for (var x = 0; x < w; x++) {
-                  seed(x);
-                  seed((h - 1) * w + x);
-                }
-                for (var y = 0; y < h; y++) {
-                  seed(y * w);
-                  seed(y * w + w - 1);
-                }
-                while (sp) {
-                  var i = stack[--sp],
-                    ix = i % w;
-                  p[i * 4 + 3] = 0;
-                  if (ix > 0) seed(i - 1);
-                  if (ix < w - 1) seed(i + 1);
-                  if (i >= w) seed(i - w);
-                  if (i < N - w) seed(i + w);
-                }
-                // 边缘抗锯齿：贴着背景的浅色像素做半透明并去白边
-                for (var j = 0; j < N; j++) {
-                  if (seen[j]) continue;
-                  var jx = j % w;
-                  var nb =
-                    (jx > 0 && seen[j - 1]) ||
-                    (jx < w - 1 && seen[j + 1]) ||
-                    (j >= w && seen[j - w]) ||
-                    (j < N - w && seen[j + w]);
-                  if (!nb) continue;
-                  var o = j * 4,
-                    m = Math.min(p[o], p[o + 1], p[o + 2]);
-                  if (m <= 150) continue;
-                  var a = Math.max(0.05, Math.min(1, (255 - m) / 105));
-                  for (var k = 0; k < 3; k++)
-                    p[o + k] = Math.max(
-                      0,
-                      Math.min(255, (p[o + k] - 255 * (1 - a)) / a),
-                    );
-                  p[o + 3] = Math.round(a * 255);
-                }
-                ctx.putImageData(data, 0, 0);
-                resolve(c.toDataURL("image/png"));
-              } catch (e) {
-                reject(e);
-              }
-            };
-            im.onerror = reject;
-            im.src = src;
-          });
-        }
-
-        var prepTimer = setTimeout(function () {
+        // 两张图都加载完再显示，避免倚靠/踉跄切换时闪一下
+        function imagesReady() {
+          layout();
           ch.classList.add("prepared");
-        }, 4000);
-        Promise.all(
-          Array.prototype.map.call(ch.querySelectorAll("img"), function (img) {
-            return keyWhite(img.src).then(function (url) {
-              img.src = url;
-            });
-          }),
-        )
-          .then(function () {
-            ch.classList.add("keyed");
-          })
-          .catch(function (e) {
-            // 跨域受限时退回 multiply 融合
-            console.warn("抠图失败，使用 multiply 兜底：", e);
-          })
-          .then(function () {
-            clearTimeout(prepTimer);
-            ch.classList.add("prepared");
-          });
-
-        // 两张图都加载完再显示，避免切换时闪白
+        }
         var imgs = ch.querySelectorAll("img"),
           left = imgs.length;
+        if (!left) imagesReady();
         imgs.forEach(function (img) {
           if (img.complete) {
-            if (--left === 0) layout();
+            if (--left === 0) imagesReady();
           } else {
             img.addEventListener("load", function () {
-              if (--left === 0) layout();
+              if (--left === 0) imagesReady();
             });
             img.addEventListener("error", function () {
-              if (--left === 0) layout();
+              if (--left === 0) imagesReady();
             });
           }
         });
