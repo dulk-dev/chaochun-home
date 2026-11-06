@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeaderNav from "../components/HeaderNav.astro";
+import StickyNoteHero from "../components/StickyNoteHero.astro";
+import BandSection from "../components/BandSection.astro";
+import CoverCard from "../components/CoverCard.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { products } from "../data/products";
+import { skills } from "../data/skills";
+import { articles } from "../data/articles";
+---
+
+<BaseLayout>
+  <HeaderNav />
+  <div class="wrap">
+    <main id="top">
+      <StickyNoteHero />
+      <BandSection id="product" title="产品" num="01" lead="我做完并上架的 App，点进去就能用。">
+        {products.map((item) => <CoverCard {...item} />)}
+      </BandSection>
+      <BandSection id="skills" title="Skills" num="02" lead="可直接装进 Agent 用的工作流；开源在 GitHub。">
+        {skills.map((item) => <CoverCard {...item} />)}
+      </BandSection>
+      <BandSection id="writing" title="文章" num="03" lead="长文在 Flowus；下面是专题入口。">
+        {articles.map((item) => <CoverCard {...item} />)}
+      </BandSection>
+    </main>
+    <SiteFooter />
+  </div>
+</BaseLayout>

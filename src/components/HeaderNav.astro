@@ -1,0 +1,76 @@
+---
+import { nav } from "../data/nav";
+---
+
+<header>
+  <div class="wrap bar">
+    <a class="wordmark" href="#top">hi超纯<span>Chaochun</span></a>
+    <nav aria-label="分区">
+      {
+        nav.map((item, index) => (
+          <a
+            href={item.href}
+            class={index === 0 ? "is-current" : undefined}
+            aria-current={index === 0 ? "location" : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="domain">chaochun.cc</div>
+  </div>
+</header>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll("nav a"));
+    var sections = links
+      .map(function (a) {
+        return document.querySelector(a.getAttribute("href"));
+      })
+      .filter(Boolean);
+
+    function setCurrent(id) {
+      links.forEach(function (a) {
+        var on = a.getAttribute("href") === "#" + id;
+        a.classList.toggle("is-current", on);
+        if (on) a.setAttribute("aria-current", "location");
+        else a.removeAttribute("aria-current");
+      });
+    }
+
+    function update() {
+      var line = window.scrollY + Math.min(160, window.innerHeight * 0.3);
+      var id = sections.length ? sections[0].id : "";
+      sections.forEach(function (sec) {
+        if (sec.offsetTop <= line) id = sec.id;
+      });
+      var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (sections.length && maxScroll > 8 && window.scrollY >= maxScroll - 4) {
+        id = sections[sections.length - 1].id;
+      }
+      if (id) setCurrent(id);
+    }
+
+    var ticking = false;
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          update();
+          ticking = false;
+        });
+      },
+      { passive: true },
+    );
+    window.addEventListener("resize", update);
+    window.addEventListener("hashchange", function () {
+      requestAnimationFrame(update);
+    });
+    update();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(update);
+  });
+</script>

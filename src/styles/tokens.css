@@ -1,0 +1,46 @@
+:root {
+        --bg: #fbf8f0;
+        --ink: #1c1915;
+        --dim: #6f675e;
+        --green: #3f6e5a;
+        --mark: #f6e38b;
+        --yellow: #f5c518;
+        --faint: #b0a794;
+        --warm: #c96f4a;
+        --note-rot: -2.5deg;
+        --line: #e5dcce;
+        --card: #fffdf8;
+        --grid: rgba(28, 25, 21, 0.045);
+        --serif: "Noto Serif SC", "Songti SC", "STSong", serif;
+        --sans: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB",
+          "Microsoft YaHei", system-ui, sans-serif;
+        color-scheme: light;
+      }
+@font-face {
+        font-family: "Noto Serif SC";
+        font-style: normal;
+        font-weight: 900;
+        font-display: swap;
+        src: url("/fonts/noto-serif-sc-900.woff2") format("woff2");
+      }
+@font-face {
+        font-family: "Noto Serif SC";
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url("/fonts/noto-serif-sc-700.woff2") format("woff2");
+      }
+@font-face {
+        font-family: "Noto Sans SC";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("/fonts/noto-sans-sc-400.woff2") format("woff2");
+      }
+@font-face {
+        font-family: "Noto Sans SC";
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("/fonts/noto-sans-sc-500.woff2") format("woff2");
+      }
