@@ -501,14 +501,20 @@
         color: rgba(28, 25, 21, 0.12);
         user-select: none;
       }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 22px;
+      }
       .card {
         display: grid;
-        grid-template-columns: 220px minmax(0, 1fr);
-        gap: 8px 28px;
+        grid-template-columns: 92px minmax(0, 1fr);
+        gap: 12px 14px;
         align-items: center;
-        margin-top: 28px;
-        max-width: 860px;
-        padding: 16px;
+        margin-top: 0;
+        max-width: none;
+        padding: 14px;
         background: #fff;
         border: 1px solid var(--line);
         border-radius: 22px;
@@ -540,13 +546,39 @@
         display: block;
       }
       .cover.icon img {
-        object-fit: contain;
-        padding: 14%;
-        background: #f7f4ec;
+        object-fit: cover;
       }
-      .cover.shot img {
-        object-fit: contain;
-        background: #fff;
+      .swatch {
+        display: grid;
+        place-items: center;
+        padding: 8px;
+        font-family: var(--serif);
+        font-weight: 900;
+        font-size: 14px;
+        line-height: 1.15;
+        text-align: center;
+        letter-spacing: -0.03em;
+        overflow-wrap: anywhere;
+      }
+      .swatch.clarify {
+        background: #3f6e5a;
+        color: #fbf8f0;
+      }
+      .swatch.duck {
+        background: #f6e38b;
+        color: #1c1915;
+      }
+      .swatch.repos {
+        background: #e7efea;
+        color: #3f6e5a;
+      }
+      .swatch.sub {
+        background: #f3e6dc;
+        color: #8a4b32;
+      }
+      .swatch.grok {
+        background: #efe6c4;
+        color: #1c1915;
       }
       .card-body {
         min-width: 0;
@@ -561,7 +593,7 @@
         margin: 8px 0 10px;
         font-family: var(--serif);
         font-weight: 900;
-        font-size: clamp(22px, 2.4vw, 30px);
+        font-size: clamp(18px, 1.7vw, 24px);
         line-height: 1.35;
       }
       .card p {
@@ -671,15 +703,15 @@
         .num {
           font-size: 64px;
         }
-        .card {
+        .cards {
           grid-template-columns: 1fr;
+        }
+        .card {
+          grid-template-columns: 84px minmax(0, 1fr);
           padding: 12px;
         }
         .card-body {
-          padding: 6px 6px 8px;
-        }
-        .cover {
-          aspect-ratio: 16 / 10;
+          padding: 4px 4px 4px 0;
         }
       }
     </style>
@@ -777,33 +809,24 @@
             <span class="num" aria-hidden="true">01</span>
           </div>
           <p class="lead">自己做完、别人能打开的。</p>
-          <a
-            class="card"
-            href="https://apps.apple.com/cn/app/%E6%B4%8B%E8%91%B1%E5%9C%88%E8%BF%90%E5%8A%A8%E8%AE%A1%E6%97%B6-%E8%AE%A1%E6%97%B6%E8%AE%A1%E6%AC%A1%E5%8F%8C%E6%A8%A1%E5%BC%8F-%E8%AF%AD%E9%9F%B3%E5%BC%95%E5%AF%BC/id6744046502"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div class="cover icon">
-              <img
-                src="assets/beeppace-icon.jpg"
-                alt=""
-                width="512"
-                height="512"
-              />
-            </div>
-            <div class="card-body">
-              <span class="kicker">App Store</span>
-              <h3>洋葱圈运动计时</h3>
-              <p>HIIT、Tabata、瑜伽体式、体能循环。计时计次双模式，语音引导。</p>
-              <span class="go">
-                在 App Store 打开
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-                  <path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span class="sr-only">（新页面打开）</span>
-              </span>
-            </div>
-          </a>
+          <div class="cards">
+            <a
+              class="card"
+              href="https://apps.apple.com/cn/app/beeppace/id6821572710"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="cover icon">
+                <img src="assets/beeppace-icon.jpg" alt="" width="512" height="512" />
+              </div>
+              <div class="card-body">
+                <span class="kicker">App Store</span>
+                <h3>BeepPace</h3>
+                <p>用固定间隔的「嘀」声帮你控制跑步配速；适合教练/体育老师带一组人跑。</p>
+                <span class="go">在 App Store 打开 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only">（新页面打开）</span></span>
+              </div>
+            </a>
+          </div>
         </section>
 
         <section class="band" id="skills" aria-labelledby="skills-title">
@@ -812,33 +835,44 @@
             <span class="num" aria-hidden="true">02</span>
           </div>
           <p class="lead">这里放跑通之后留下的做法。</p>
-          <a
-            class="card"
-            href="https://github.com/dulk-dev/flomo-cli"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div class="cover shot">
-              <img
-                src="assets/flomo-cli-cover.png"
-                alt=""
-                width="708"
-                height="715"
-              />
-            </div>
-            <div class="card-body">
-              <span class="kicker">GitHub</span>
-              <h3>flomo-cli</h3>
-              <p>通过逆向 Flomo Web API 的命令行工具，面向人类与 AI Agent。</p>
-              <span class="go">
-                查看仓库
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-                  <path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span class="sr-only">（新页面打开）</span>
-              </span>
-            </div>
-          </a>
+          <div class="cards">
+            <a class="card" href="https://github.com/dulk-dev/my-skills/tree/master/clarify" target="_blank" rel="noopener noreferrer">
+              <div class="cover swatch clarify">clarify</div>
+              <div class="card-body">
+                <span class="kicker">GitHub</span>
+                <h3>clarify</h3>
+                <p>代码感知的采访式需求澄清。</p>
+                <span class="go">查看 skill <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only">（新页面打开）</span></span>
+              </div>
+            </a>
+            <a class="card" href="https://github.com/dulk-dev/my-skills/tree/master/duck" target="_blank" rel="noopener noreferrer">
+              <div class="cover swatch duck">duck</div>
+              <div class="card-body">
+                <span class="kicker">GitHub</span>
+                <h3>duck</h3>
+                <p>小黄鸭调试法，说清问题与上下文。</p>
+                <span class="go">查看 skill <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only">（新页面打开）</span></span>
+              </div>
+            </a>
+            <a class="card" href="https://github.com/dulk-dev/my-skills/tree/master/find-repos" target="_blank" rel="noopener noreferrer">
+              <div class="cover swatch repos">find-repos</div>
+              <div class="card-body">
+                <span class="kicker">GitHub</span>
+                <h3>find-repos</h3>
+                <p>查找并评估开源参考项目。</p>
+                <span class="go">查看 skill <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only">（新页面打开）</span></span>
+              </div>
+            </a>
+            <a class="card" href="https://github.com/dulk-dev/chaochun-subtitle" target="_blank" rel="noopener noreferrer">
+              <div class="cover swatch sub">字幕</div>
+              <div class="card-body">
+                <span class="kicker">GitHub</span>
+                <h3>chaochun-subtitle</h3>
+                <p>基于 oil-subtitle 的字幕 skill。</p>
+                <span class="go">查看 skill <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only">（新页面打开）</span></span>
+              </div>
+            </a>
+          </div>
         </section>
 
         <section class="band" id="writing" aria-labelledby="writing-title">
@@ -847,28 +881,28 @@
             <span class="num" aria-hidden="true">03</span>
           </div>
           <p class="lead">长文在 Flowus，这里只放入口。</p>
-          <a
-            class="card"
-            href="https://flowus.cn/chaochun/7f02ff36-319c-4d80-b29c-374aa213e04f"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div class="cover">
-              <img src="assets/vibe-cover.svg" alt="" width="640" height="640" />
-            </div>
-            <div class="card-body">
-              <span class="kicker">Flowus</span>
-              <h3>VibeCoding从0到1手把手系列</h3>
-              <p>从零开始的手把手记录。正文在 Flowus。</p>
-              <span class="go">
-                去 Flowus 阅读
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-                  <path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span class="sr-only">（新页面打开）</span>
-              </span>
-            </div>
-          </a>
+          <div class="cards">
+            <a class="card" href="https://flowus.cn/chaochun/7f02ff36-319c-4d80-b29c-374aa213e04f" target="_blank" rel="noopener noreferrer">
+              <div class="cover">
+                <img src="assets/vibe-cover.svg" alt="" width="640" height="640" />
+              </div>
+              <div class="card-body">
+                <span class="kicker">Flowus</span>
+                <h3>VibeCoding从0到1手把手系列</h3>
+                <p>从零开始的手把手记录。正文在 Flowus。</p>
+                <span class="go">去 Flowus 阅读 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only">（新页面打开）</span></span>
+              </div>
+            </a>
+            <a class="card" href="https://flowus.cn/chaochun/3a186550-f03c-4e22-aab7-1bbfab3b20c2" target="_blank" rel="noopener noreferrer">
+              <div class="cover swatch grok">Grok</div>
+              <div class="card-body">
+                <span class="kicker">Flowus</span>
+                <h3>Grok Bot 专题</h3>
+                <p>专题先挂在这里。正文还少。</p>
+                <span class="go">去 Flowus 阅读 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only">（新页面打开）</span></span>
+              </div>
+            </a>
+          </div>
         </section>
       </main>
 
