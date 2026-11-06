@@ -9,3 +9,11 @@
 ```bash
 npx wrangler deploy
 ```
+
+设计稿在 [`design.html`](design.html)，不替换线上首页。本地预览：
+
+```bash
+python3 -m http.server 4321
+```
+
+打开 <http://127.0.0.1:4321/design.html>。

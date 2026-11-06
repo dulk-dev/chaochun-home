@@ -1,0 +1,736 @@
+<!doctype html>
+<!-- 设计稿。线上首页仍是 index.html。长文在 Flowus，这里只做引导。 -->
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#FBF8F0" />
+    <meta
+      name="description"
+      content="超纯：用 AI 解决问题，也把它们分享给你们"
+    />
+    <title>超纯 · Chaochun</title>
+    <link
+      rel="preload"
+      href="fonts/noto-serif-sc-900-design.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="fonts/noto-sans-sc-400-design.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <style>
+      @font-face {
+        font-family: "Noto Serif SC";
+        font-style: normal;
+        font-weight: 900;
+        font-display: swap;
+        src: url("fonts/noto-serif-sc-900-design.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "Noto Sans SC";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("fonts/noto-sans-sc-400-design.woff2") format("woff2");
+      }
+
+      :root {
+        --bg: #fbf8f0;
+        --ink: #1c1915;
+        --dim: #6f675e;
+        --green: #3f6e5a;
+        --mark: #f6e38b;
+        --line: #e5dcce;
+        --card: #fffdf8;
+        --grid: rgba(28, 25, 21, 0.045);
+        --serif: "Noto Serif SC", "Songti SC", "STSong", serif;
+        --sans: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB",
+          "Microsoft YaHei", system-ui, sans-serif;
+        color-scheme: light;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: auto;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        html {
+          scroll-behavior: smooth;
+        }
+      }
+      body {
+        background-color: var(--bg);
+        background-image:
+          linear-gradient(to right, var(--grid) 1px, transparent 1px),
+          linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+        background-size: 28px 28px;
+        color: var(--ink);
+        font-family: var(--sans);
+        font-weight: 400;
+        font-synthesis: none;
+        line-height: 1.7;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+      ::selection {
+        background: var(--mark);
+        color: var(--ink);
+      }
+      .skip {
+        position: absolute;
+        left: 16px;
+        top: -48px;
+        z-index: 20;
+        background: var(--card);
+        color: var(--ink);
+        padding: 8px 12px;
+      }
+      .skip:focus {
+        top: 12px;
+      }
+      a:focus-visible {
+        outline: 2px solid var(--green);
+        outline-offset: 3px;
+      }
+      .wrap {
+        width: 100%;
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 clamp(20px, 4vw, 48px);
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: var(--bg);
+        border-bottom: 1.5px solid var(--ink);
+      }
+      .bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px 32px;
+        min-height: 72px;
+        padding-top: 16px;
+        padding-bottom: 14px;
+      }
+      .wordmark {
+        font-family: var(--serif);
+        font-weight: 900;
+        font-size: 18px;
+        color: var(--ink);
+        text-decoration: none;
+        line-height: 1;
+      }
+      .wordmark span {
+        margin-left: 8px;
+        font-family: var(--sans);
+        font-weight: 400;
+        font-size: 13px;
+        color: var(--dim);
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      nav a {
+        position: relative;
+        color: var(--dim);
+        font-family: var(--serif);
+        font-weight: 900;
+        font-size: 20px;
+        line-height: 1.2;
+        text-decoration: none;
+        padding: 0 0.08em;
+      }
+      nav a:hover {
+        color: var(--ink);
+      }
+      nav a.is-current {
+        color: var(--ink);
+        background-image: linear-gradient(var(--mark), var(--mark));
+        background-repeat: no-repeat;
+        background-size: 100% 0.45em;
+        background-position: 0 0.5em;
+      }
+      .domain {
+        margin-left: auto;
+        font-family: ui-monospace, "SF Mono", Consolas, monospace;
+        font-size: 12px;
+        color: var(--dim);
+      }
+
+      main {
+        padding-bottom: 12px;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        column-gap: 28px;
+        align-items: end;
+        padding: clamp(40px, 7vh, 72px) 0 64px;
+      }
+      .greeting {
+        font-size: 15px;
+        color: var(--dim);
+        margin-bottom: 18px;
+      }
+      h1 {
+        font-family: var(--serif);
+        font-weight: 900;
+        font-size: clamp(26px, 4.4vw, 48px);
+        line-height: 1.4;
+        letter-spacing: 0.01em;
+      }
+      h1 .line {
+        display: block;
+      }
+      .mark {
+        padding: 0 0.06em;
+        margin: 0 -0.02em;
+        white-space: nowrap;
+        background-image: linear-gradient(var(--mark), var(--mark));
+        background-repeat: no-repeat;
+        background-size: 100% 0.48em;
+        background-position: 0 0.46em;
+        box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
+      }
+      .position-break {
+        display: none;
+      }
+      .position {
+        margin-top: 28px;
+        max-width: 22em;
+        font-size: 18px;
+        line-height: 1.75;
+        color: var(--ink);
+      }
+      .thesis {
+        margin-top: 10px;
+        max-width: 24em;
+        font-size: 15px;
+        line-height: 1.75;
+        color: var(--dim);
+      }
+      .sign {
+        margin-top: 28px;
+        font-family: var(--serif);
+        font-weight: 900;
+        font-size: 16px;
+      }
+      .hero-fig img {
+        height: min(320px, 46vh);
+        width: auto;
+      }
+
+      .band {
+        scroll-margin-top: 96px;
+        padding: 36px 0 64px;
+        border-top: 1px solid var(--line);
+      }
+      .band-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 16px;
+      }
+      h2 {
+        font-family: var(--serif);
+        font-weight: 900;
+        font-size: clamp(36px, 5vw, 56px);
+        line-height: 1.15;
+      }
+      .lead {
+        margin-top: 10px;
+        max-width: 28em;
+        font-size: 16px;
+        color: var(--dim);
+      }
+      .num {
+        font-family: var(--serif);
+        font-weight: 900;
+        font-size: clamp(72px, 11vw, 128px);
+        line-height: 0.75;
+        letter-spacing: -0.04em;
+        color: rgba(28, 25, 21, 0.12);
+        user-select: none;
+      }
+      .card {
+        margin-top: 28px;
+        max-width: 640px;
+        padding: 26px 26px 22px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 10px 30px rgba(28, 25, 21, 0.04);
+      }
+      .kicker {
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        color: var(--green);
+      }
+      h3 {
+        margin: 8px 0 16px;
+        font-family: var(--serif);
+        font-weight: 900;
+        font-size: clamp(24px, 3vw, 30px);
+        line-height: 1.35;
+      }
+      .card p {
+        font-size: 16px;
+        line-height: 1.85;
+      }
+      .arc {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        margin: 0 0 16px;
+      }
+      .arc figure {
+        text-align: center;
+      }
+      .arc img {
+        display: block;
+        height: 176px;
+        margin: 0 auto;
+        object-fit: contain;
+      }
+      .arc img.trip {
+        width: 150px;
+        object-view-box: inset(8% 14% 7% 7%);
+      }
+      .arc img.lean {
+        width: 118px;
+        object-view-box: inset(6% 33% 6% 15%);
+      }
+      .arc figcaption {
+        margin-top: 2px;
+        font-size: 13px;
+        color: var(--dim);
+        line-height: 1.4;
+      }
+      .arc .now {
+        color: var(--green);
+      }
+      .arc-arrow {
+        margin: 78px 2px 0;
+        color: var(--green);
+        flex: none;
+      }
+      .trail {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0;
+        list-style: none;
+        margin: 0 0 14px;
+      }
+      .trail li {
+        font-family: var(--serif);
+        font-weight: 900;
+        font-size: 18px;
+        color: var(--green);
+        line-height: 1.4;
+      }
+      .trail li + li::before {
+        content: "";
+        display: inline-block;
+        width: 28px;
+        height: 1.5px;
+        margin: 0 12px 0.2em;
+        background: #c9d5ce;
+        vertical-align: middle;
+      }
+      .card-link {
+        display: block;
+        color: inherit;
+        text-decoration: none;
+        transition:
+          border-color 0.2s ease,
+          transform 0.2s ease;
+      }
+      .card-link:hover {
+        border-color: var(--green);
+        transform: translateY(-2px);
+      }
+      .card-link:focus-visible {
+        outline-offset: 4px;
+      }
+      .go {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 18px;
+        color: var(--green);
+        font-size: 15px;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .card-link {
+          transition: none;
+        }
+        .card-link:hover {
+          transform: none;
+        }
+      }
+
+      footer {
+        padding: 28px 0 48px;
+        border-top: 1px solid var(--line);
+      }
+      .hint {
+        font-size: 13px;
+        color: var(--dim);
+      }
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 22px;
+        margin: 12px 0 28px;
+      }
+      .links a {
+        color: var(--green);
+        font-size: 15px;
+        text-decoration: none;
+      }
+      .links a span {
+        margin-left: 6px;
+        color: var(--dim);
+        font-size: 13px;
+      }
+      .links a:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      .fine {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--dim);
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      @media (max-width: 1100px) {
+        .hero-fig img {
+          height: 250px;
+        }
+      }
+      @media (max-width: 760px) {
+        nav {
+          order: 3;
+          flex-basis: 100%;
+          gap: 22px;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+          row-gap: 8px;
+          padding-top: 36px;
+        }
+        .hero-fig img {
+          height: 180px;
+        }
+        .position-break {
+          display: block;
+        }
+        .num {
+          font-size: 64px;
+        }
+        .card {
+          padding: 20px 18px 18px;
+        }
+        .arc img {
+          height: 132px;
+        }
+        .arc-arrow {
+          margin-top: 56px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#top">跳到内容</a>
+    <header>
+      <div class="wrap bar">
+        <a class="wordmark" href="#top">hi超纯<span>Chaochun</span></a>
+        <nav aria-label="分区">
+          <a href="#product" class="is-current" aria-current="location">产品</a>
+          <a href="#skills">Skills</a>
+          <a href="#writing">文章</a>
+        </nav>
+        <div class="domain">chaochun.cc</div>
+      </div>
+    </header>
+    <div class="wrap">
+      <main id="top">
+        <section class="hero" aria-labelledby="slogan">
+          <div class="hero-copy">
+            <p class="greeting">你好，我是超纯。</p>
+            <h1 id="slogan">
+              <span class="line">指向世界的信息会过期，</span>
+              <span class="line">但指向自己的信息</span>
+              <span class="line">会产生<span class="mark">复利</span>。</span>
+            </h1>
+            <p class="position">
+              超纯：用 AI 解决问题，<span class="position-break"></span>也把它们分享给你们。
+            </p>
+            <p class="thesis">砍下来的柴放在这里，磨刀的过程留在自己手里。</p>
+            <p class="sign">—— Chaochun</p>
+          </div>
+          <figure class="hero-fig">
+            <picture>
+              <source srcset="assets/char-lean.webp" type="image/webp" />
+              <img
+                src="assets/char-lean.png"
+                alt="超纯，戴黑色渔夫帽和方框眼镜，靠着站好"
+                width="960"
+                height="1280"
+                fetchpriority="high"
+              />
+            </picture>
+          </figure>
+        </section>
+
+        <section class="band" id="product" aria-labelledby="product-title">
+          <div class="band-head">
+            <h2 id="product-title">产品</h2>
+            <span class="num" aria-hidden="true">01</span>
+          </div>
+          <p class="lead">这里放自己做完、别人能打开的东西。</p>
+          <article class="card">
+            <p class="kicker">示例</p>
+            <h3>从狼狈，到跑通</h3>
+            <div class="arc">
+              <figure>
+                <picture>
+                  <source srcset="assets/char-trip.webp" type="image/webp" />
+                  <img
+                    class="trip"
+                    src="assets/char-trip.png"
+                    alt=""
+                    width="960"
+                    height="1280"
+                  />
+                </picture>
+                <figcaption>狼狈</figcaption>
+              </figure>
+              <svg
+                class="arc-arrow"
+                width="28"
+                height="16"
+                viewBox="0 0 28 16"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0 8h24M18 2l8 6-8 6"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <figure>
+                <picture>
+                  <source srcset="assets/char-lean.webp" type="image/webp" />
+                  <img
+                    class="lean"
+                    src="assets/char-lean.png"
+                    alt=""
+                    width="960"
+                    height="1280"
+                  />
+                </picture>
+                <figcaption class="now">跑通</figcaption>
+              </figure>
+            </div>
+            <p>先是站不稳，最后留下一个能用的结果。</p>
+          </article>
+        </section>
+
+        <section class="band" id="skills" aria-labelledby="skills-title">
+          <div class="band-head">
+            <h2 id="skills-title">Skills</h2>
+            <span class="num" aria-hidden="true">02</span>
+          </div>
+          <p class="lead">这里放跑通之后留下的做法。</p>
+          <article class="card">
+            <p class="kicker">示例</p>
+            <h3>一个问题，一次跑通</h3>
+            <ol class="trail">
+              <li>问题</li>
+              <li>跑通</li>
+              <li>步骤</li>
+            </ol>
+            <p>输入是卡住的地方，留下的是下次还能照着做的步骤。</p>
+          </article>
+        </section>
+
+        <section class="band" id="writing" aria-labelledby="writing-title">
+          <div class="band-head">
+            <h2 id="writing-title">文章</h2>
+            <span class="num" aria-hidden="true">03</span>
+          </div>
+          <p class="lead">长文在 Flowus，这里只放入口。</p>
+          <a
+            class="card card-link"
+            href="https://chaochun.flowus.cn/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <p class="kicker">笔记</p>
+            <h3>写给自己的记录</h3>
+            <p>
+              长文写在 Flowus。<span class="position-break"></span>这个页面只负责送你过去。
+            </p>
+            <p class="go">
+              去 Flowus 阅读
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M4 9h10M10 5l4 4-4 4"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span class="sr-only">（新页面打开）</span>
+            </p>
+          </a>
+        </section>
+      </main>
+
+      <footer>
+        <p class="hint">在这些地方可以找到我</p>
+        <div class="links">
+          <a
+            href="https://www.xiaohongshu.com/user/profile/6163ad690000000002026b33"
+            target="_blank"
+            rel="noopener noreferrer"
+            >小红书<span>hi超纯</span></a
+          >
+          <a
+            href="https://space.bilibili.com/297551734"
+            target="_blank"
+            rel="noopener noreferrer"
+            >哔哩哔哩<span>hi超纯</span></a
+          >
+          <a
+            href="https://www.douyin.com/user/MS4wLjABAAAA3s9_EFn_Xkfzx8TMBtHKNfp-sznih1sfiyLIFrJ-oLQ"
+            target="_blank"
+            rel="noopener noreferrer"
+            >抖音<span>hi超纯</span></a
+          >
+          <a
+            href="https://x.com/hichaochun"
+            target="_blank"
+            rel="noopener noreferrer"
+            >X<span>@hichaochun</span></a
+          >
+          <a
+            href="https://github.com/dulk-dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub<span>dulk-dev</span></a
+          >
+        </div>
+        <div class="fine">
+          <span>© 2026 Chaochun</span>
+          <span>如果想法不能被执行，就会被雪藏。</span>
+        </div>
+      </footer>
+    </div>
+    <script>
+      (function () {
+        var links = Array.prototype.slice.call(
+          document.querySelectorAll("nav a"),
+        );
+        var sections = links
+          .map(function (a) {
+            return document.querySelector(a.getAttribute("href"));
+          })
+          .filter(Boolean);
+
+        function setCurrent(id) {
+          links.forEach(function (a) {
+            var on = a.getAttribute("href") === "#" + id;
+            a.classList.toggle("is-current", on);
+            if (on) a.setAttribute("aria-current", "location");
+            else a.removeAttribute("aria-current");
+          });
+        }
+
+        function update() {
+          var line = window.scrollY + Math.min(160, window.innerHeight * 0.3);
+          var id = sections.length ? sections[0].id : "";
+          sections.forEach(function (sec) {
+            if (sec.offsetTop <= line) id = sec.id;
+          });
+          var maxScroll =
+            document.documentElement.scrollHeight - window.innerHeight;
+          if (
+            sections.length &&
+            maxScroll > 8 &&
+            window.scrollY >= maxScroll - 4
+          ) {
+            id = sections[sections.length - 1].id;
+          }
+          if (id) setCurrent(id);
+        }
+
+        var ticking = false;
+        window.addEventListener(
+          "scroll",
+          function () {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(function () {
+              update();
+              ticking = false;
+            });
+          },
+          { passive: true },
+        );
+        window.addEventListener("resize", update);
+        window.addEventListener("hashchange", function () {
+          requestAnimationFrame(update);
+        });
+        update();
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(update);
+        }
+      })();
+    </script>
+  </body>
+</html>
