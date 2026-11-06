@@ -8,7 +8,7 @@
     <meta name="theme-color" content="#FBF8F0" />
     <meta
       name="description"
-      content="超纯：用 AI 解决问题，也把它们分享给你们"
+      content="用 AI 解决问题，也把方法分享给你们。"
     />
     <title>超纯 · Chaochun</title>
     <link
@@ -34,11 +34,27 @@
         src: url("fonts/noto-serif-sc-900-design.woff2") format("woff2");
       }
       @font-face {
+        font-family: "Noto Serif SC";
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url("fonts/noto-serif-sc-700.woff2") format("woff2");
+        unicode-range: U+0020-007E, U+00A9, U+00B7, U+2014, U+2026, U+3002, U+4E0A, U+4E0D, U+4E16, U+4E5F, U+4E66, U+4E9B, U+4EA7, U+4EAB, U+4EBA, U+4EE5, U+4EEC, U+4F1A, U+4F46, U+4F60, U+4FBF, U+4FE1, U+5148, U+51B3, U+5206, U+5229, U+5230, U+53EF, U+53F3, U+5411, U+547C, U+548C, U+54D4, U+54E9, U+5728, U+5730, U+590D, U+592B, U+597D, U+5982, U+59CB, U+5C0F, U+5C31, U+5DF1, U+5E3D, U+5E73, U+5F00, U+5F62, U+5F88, U+606F, U+60F3, U+6211, U+6234, U+6240, U+624B, U+6267, U+627E, U+628A, U+6296, U+6307, U+65B9, U+662F, U+66F2, U+671F, U+679C, U+6846, U+6C89, U+6CD5, U+6DC0, U+6E14, U+751F, U+7528, U+754C, U+7684, U+773C, U+7740, U+7B7E, U+7EA2, U+7EAF, U+7EBF, U+7ED9, U+8098, U+80FD, U+81EA, U+8272, U+85CF, U+884C, U+88AB, U+89D2, U+89E3, U+8BF6, U+8C61, U+8D85, U+8FC7, U+8FD8-8FD9, U+90FD, U+955C, U+95EE, U+96EA, U+9760, U+97F3, U+9898, U+9ED1, U+FF01, U+FF0C, U+FF1A;
+      }
+      @font-face {
         font-family: "Noto Sans SC";
         font-style: normal;
         font-weight: 400;
         font-display: swap;
         src: url("fonts/noto-sans-sc-400-design.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "Noto Sans SC";
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("fonts/noto-sans-sc-500.woff2") format("woff2");
+        unicode-range: U+0020-007E, U+00A9, U+00B7, U+2014, U+2026, U+3002, U+4E0A, U+4E0D, U+4E16, U+4E5F, U+4E66, U+4E9B, U+4EA7, U+4EAB, U+4EBA, U+4EE5, U+4EEC, U+4F1A, U+4F46, U+4F60, U+4FBF, U+4FE1, U+5148, U+51B3, U+5206, U+5229, U+5230, U+53EF, U+53F3, U+5411, U+547C, U+548C, U+54D4, U+54E9, U+5728, U+5730, U+590D, U+592B, U+597D, U+5982, U+59CB, U+5C0F, U+5C31, U+5DF1, U+5E3D, U+5E73, U+5F00, U+5F62, U+5F88, U+606F, U+60F3, U+6211, U+6234, U+6240, U+624B, U+6267, U+627E, U+628A, U+6296, U+6307, U+65B9, U+662F, U+66F2, U+671F, U+679C, U+6846, U+6C89, U+6CD5, U+6DC0, U+6E14, U+751F, U+7528, U+754C, U+7684, U+773C, U+7740, U+7B7E, U+7EA2, U+7EAF, U+7EBF, U+7ED9, U+8098, U+80FD, U+81EA, U+8272, U+85CF, U+884C, U+88AB, U+89D2, U+89E3, U+8BF6, U+8C61, U+8D85, U+8FC7, U+8FD8-8FD9, U+90FD, U+955C, U+95EE, U+96EA, U+9760, U+97F3, U+9898, U+9ED1, U+FF01, U+FF0C, U+FF1A;
       }
 
       :root {
@@ -47,6 +63,8 @@
         --dim: #6f675e;
         --green: #3f6e5a;
         --mark: #f6e38b;
+        --yellow: #f5c518;
+        --faint: #b0a794;
         --warm: #c96f4a;
         --note-rot: -2.5deg;
         --line: #e5dcce;
@@ -180,30 +198,44 @@
       }
       .hero {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        column-gap: 12px;
+        grid-template-columns: 1fr 1.15fr;
+        gap: clamp(32px, 4vw, 56px);
         align-items: center;
-        padding: clamp(36px, 6vh, 64px) 0 48px;
+        padding: clamp(40px, 7vh, 80px) 0;
       }
-      @media (min-width: 761px) {
-        .hero h1 {
-          font-size: clamp(28px, 3vw, 40px);
-        }
+      .hero > .text,
+      .hero > .stage {
+        min-width: 0;
+        max-width: 100%;
       }
       .greeting {
         font-size: 15px;
-        color: var(--dim);
-        margin-bottom: 18px;
+        color: #8a8178;
+        margin-bottom: 24px;
       }
-      h1 {
+      .hero h1 {
         font-family: var(--serif);
         font-weight: 900;
-        font-size: clamp(26px, 4.4vw, 48px);
-        line-height: 1.4;
+        font-size: clamp(25px, 3.8vw, 42px);
+        line-height: 1.45;
         letter-spacing: 0.01em;
       }
-      h1 .line {
-        display: block;
+      .hero h1 .line {
+        white-space: nowrap;
+      }
+      .hero h1 .u {
+        text-decoration: underline;
+        text-decoration-color: var(--yellow);
+        text-decoration-thickness: 0.32em;
+        text-underline-offset: -0.12em;
+        text-decoration-skip-ink: none;
+      }
+      .tagline {
+        margin-top: 28px;
+        font-size: 16px;
+        color: #8a8178;
+        line-height: 2;
+        max-width: 30em;
       }
       .mark {
         padding: 0 0.06em;
@@ -216,32 +248,9 @@
         box-decoration-break: clone;
         -webkit-box-decoration-break: clone;
       }
-      .position-break {
-        display: none;
-      }
-      .position {
-        margin-top: 28px;
-        max-width: 22em;
-        font-size: 18px;
-        line-height: 1.75;
-        color: var(--ink);
-      }
-      .thesis {
-        margin-top: 10px;
-        max-width: 24em;
-        font-size: 15px;
-        line-height: 1.75;
-        color: var(--dim);
-      }
-      .sign {
-        margin-top: 28px;
-        font-family: var(--serif);
-        font-weight: 900;
-        font-size: 16px;
-      }
       .stage {
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
         min-width: 0;
       }
       .note-wrap {
@@ -254,7 +263,7 @@
       .note {
         position: relative;
         z-index: 1;
-        width: min(280px, 100%);
+        width: min(320px, 100%);
         aspect-ratio: 1 / 1.05;
         background: linear-gradient(175deg, #fff6a8 0%, #ffed85 60%, #fbe878 100%);
         border-radius: 3px;
@@ -293,8 +302,8 @@
       }
       .note .n-mid {
         font-family: var(--serif);
-        font-weight: 900;
-        font-size: 22px;
+        font-weight: 700;
+        font-size: 24px;
         line-height: 1.65;
         margin-top: 18px;
       }
@@ -644,8 +653,40 @@
       }
 
       @media (max-width: 1100px) {
-        .hero .note {
-          width: min(240px, 100%);
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .hero .text {
+          width: 100%;
+        }
+      }
+      @media (max-width: 1100px) and (min-width: 641px) {
+        .stage {
+          justify-content: flex-start;
+        }
+        .note {
+          width: min(280px, 100%);
+        }
+        .note .n-mid {
+          font-size: 21px;
+        }
+      }
+      @media (max-width: 640px) {
+        .hero h1 .line {
+          white-space: normal;
+        }
+        .stage {
+          justify-content: flex-start;
+        }
+        .note {
+          width: min(240px, 62vw);
+          padding: 36px 20px 18px;
+        }
+        .note .n-mid {
+          font-size: 18px;
+        }
+        .note svg {
+          width: 110px;
         }
       }
       @media (max-width: 760px) {
@@ -655,23 +696,8 @@
           gap: 22px;
         }
         .hero {
-          grid-template-columns: 1fr;
           row-gap: 8px;
           padding-top: 36px;
-        }
-        .stage {
-          justify-content: flex-start;
-          margin-top: 12px;
-        }
-        .note {
-          width: min(240px, 70vw);
-          padding: 36px 20px 18px;
-        }
-        .note .n-mid {
-          font-size: 18px;
-        }
-        .position-break {
-          display: block;
         }
         .num {
           font-size: 64px;
@@ -710,18 +736,15 @@
     <div class="wrap">
       <main id="top">
         <section class="hero" aria-labelledby="slogan">
-          <div class="hero-copy">
+          <div class="text">
             <p class="greeting">你好，我是超纯。</p>
             <h1 id="slogan">
-              <span class="line">指向世界的信息会过期，</span>
-              <span class="line">但指向自己的信息</span>
-              <span class="line">会产生<span class="mark">复利</span>。</span>
+              <span class="line">指向世界的信息会过期，</span><br /><span
+                class="line"
+                >但指向自己的信息，</span
+              ><br /><span class="line">会产生<span class="u">复利</span>。</span>
             </h1>
-            <p class="position">
-              超纯：用 AI 解决问题，<span class="position-break"></span>也把它们分享给你们。
-            </p>
-            <p class="thesis">砍下来的柴放在这里，磨刀的过程留在自己手里。</p>
-            <p class="sign">—— Chaochun</p>
+            <p class="tagline">用 AI 解决问题，也把方法分享给你们。</p>
           </div>
           <div class="stage">
             <div class="note-wrap" id="noteWrap">
@@ -750,7 +773,7 @@
                 class="char"
                 id="char"
                 role="img"
-                aria-label="超纯的形象：戴黑色渔夫帽和方框眼镜的小人，手肘靠在便签右上角"
+                aria-label="超纯的 IP 形象：戴黑色渔夫帽和方框眼镜的小人，手肘靠在便签右上角"
               >
                 <picture>
                   <source srcset="assets/char-lean.webp" type="image/webp" />
@@ -891,7 +914,7 @@
       </main>
 
       <footer>
-        <p class="hint">在这些地方可以找到我</p>
+        <p class="hint">在这些地方可以找到我：</p>
         <div class="links">
           <a
             href="https://www.xiaohongshu.com/user/profile/6163ad690000000002026b33"
@@ -1012,7 +1035,7 @@
         }
 
         function layout() {
-          var narrow = window.innerWidth <= 760;
+          var narrow = window.innerWidth <= 640;
           var scaleK = narrow ? 1.55 : 1.9;
           var stageEl = wrap.closest(".stage");
           var avail = stageEl
@@ -1031,7 +1054,7 @@
               var tH = trial * noteAR;
               var tCornerX = trial / 2 + (trial / 2) * cosA - (-tH / 2) * sinA;
               var tW = trial * scaleK * IMG_RATIO;
-              var visR = tCornerX - ELBOW_X * tW + tW * 1.02;
+              var visR = tCornerX - ELBOW_X * tW + tW * VISIBLE_RIGHT;
               if (visR > budget) hi = trial;
               else lo = trial;
             }
