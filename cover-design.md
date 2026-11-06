@@ -1,6 +1,6 @@
 # 封面生图说明
 
-`design.html` 卡片左侧封面的风格备忘。新封面放在 `assets/design/`，不要外链临时图床。
+首页 `index.html` 卡片左侧封面的风格备忘。新封面放在 `assets/design/`，不要外链临时图床。
 
 右栏小角标可以另用 App 图标（见 `onion-mark.jpg`、`beeppace-mark.jpg`）。左侧大图是场景插画，不拿纯色块或单独图标充封面。
 
