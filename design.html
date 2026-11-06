@@ -237,6 +237,40 @@
         line-height: 2;
         max-width: 30em;
       }
+      .findme {
+        margin-top: 40px;
+        padding: 18px 22px;
+        background: #fff;
+        border: 1px solid #e8e2d6;
+        border-radius: 14px;
+        max-width: 440px;
+      }
+      .findme .hint {
+        font-size: 13px;
+        color: var(--faint);
+        margin-bottom: 12px;
+      }
+      .findme .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 22px;
+      }
+      .findme a {
+        color: var(--green);
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 500;
+        border-bottom: 1px solid transparent;
+      }
+      .findme a:hover {
+        border-bottom-color: var(--green);
+      }
+      .findme a span {
+        color: var(--faint);
+        font-weight: 400;
+        font-size: 13px;
+        margin-left: 4px;
+      }
       .mark {
         padding: 0 0.06em;
         margin: 0 -0.02em;
@@ -608,30 +642,6 @@
         padding: 28px 0 48px;
         border-top: 1px solid var(--line);
       }
-      .hint {
-        font-size: 13px;
-        color: var(--dim);
-      }
-      .links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px 22px;
-        margin: 12px 0 28px;
-      }
-      .links a {
-        color: var(--green);
-        font-size: 15px;
-        text-decoration: none;
-      }
-      .links a span {
-        margin-left: 6px;
-        color: var(--dim);
-        font-size: 13px;
-      }
-      .links a:hover {
-        text-decoration: underline;
-        text-underline-offset: 3px;
-      }
       .fine {
         display: flex;
         justify-content: space-between;
@@ -657,6 +667,10 @@
           grid-template-columns: 1fr;
         }
         .hero .text {
+          width: 100%;
+        }
+        .findme {
+          max-width: none;
           width: 100%;
         }
       }
@@ -745,6 +759,16 @@
               ><br /><span class="line">会产生<span class="u">复利</span>。</span>
             </h1>
             <p class="tagline">用 AI 解决问题，也把方法分享给你们。</p>
+            <div class="findme">
+              <p class="hint">在这些地方可以找到我：</p>
+              <div class="links">
+                <a href="https://www.xiaohongshu.com/user/profile/6163ad690000000002026b33" target="_blank" rel="noopener noreferrer">小红书<span>hi超纯</span></a>
+                <a href="https://space.bilibili.com/297551734" target="_blank" rel="noopener noreferrer">哔哩哔哩<span>hi超纯</span></a>
+                <a href="https://www.douyin.com/user/MS4wLjABAAAA3s9_EFn_Xkfzx8TMBtHKNfp-sznih1sfiyLIFrJ-oLQ" target="_blank" rel="noopener noreferrer">抖音<span>hi超纯</span></a>
+                <a href="https://x.com/hichaochun" target="_blank" rel="noopener noreferrer">X<span>@hichaochun</span></a>
+                <a href="https://github.com/dulk-dev" target="_blank" rel="noopener noreferrer">GitHub<span>dulk-dev</span></a>
+              </div>
+            </div>
           </div>
           <div class="stage">
             <div class="note-wrap" id="noteWrap">
@@ -914,39 +938,6 @@
       </main>
 
       <footer>
-        <p class="hint">在这些地方可以找到我：</p>
-        <div class="links">
-          <a
-            href="https://www.xiaohongshu.com/user/profile/6163ad690000000002026b33"
-            target="_blank"
-            rel="noopener noreferrer"
-            >小红书<span>hi超纯</span></a
-          >
-          <a
-            href="https://space.bilibili.com/297551734"
-            target="_blank"
-            rel="noopener noreferrer"
-            >哔哩哔哩<span>hi超纯</span></a
-          >
-          <a
-            href="https://www.douyin.com/user/MS4wLjABAAAA3s9_EFn_Xkfzx8TMBtHKNfp-sznih1sfiyLIFrJ-oLQ"
-            target="_blank"
-            rel="noopener noreferrer"
-            >抖音<span>hi超纯</span></a
-          >
-          <a
-            href="https://x.com/hichaochun"
-            target="_blank"
-            rel="noopener noreferrer"
-            >X<span>@hichaochun</span></a
-          >
-          <a
-            href="https://github.com/dulk-dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            >GitHub<span>dulk-dev</span></a
-          >
-        </div>
         <div class="fine">
           <span>© 2026 Chaochun</span>
           <span>如果想法不能被执行，就会被雪藏。</span>
