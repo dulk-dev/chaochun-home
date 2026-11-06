@@ -1,0 +1,234 @@
+---
+import FindMe from "./FindMe.astro";
+---
+
+<section class="hero" aria-labelledby="slogan">
+  <div class="text">
+    <p class="greeting">你好，我是超纯。</p>
+    <h1 id="slogan">
+      <span class="line">指向世界的信息会过期，</span><br /><span class="line">但指向自己的信息，</span
+      ><br /><span class="line">会产生<span class="u">复利</span>。</span>
+    </h1>
+    <p class="tagline">用 AI 解决问题，也把方法分享给你们。</p>
+    <FindMe />
+  </div>
+  <div class="stage">
+    <div class="note-wrap" id="noteWrap">
+      <div class="note" id="note">
+        <p class="n-mid">
+          复利曲线开始都很平，<br />所以<span class="u">先沉淀着</span>。
+        </p>
+        <svg width="150" height="48" viewBox="0 0 150 48" fill="none" aria-hidden="true">
+          <path
+            d="M4 42 C 50 41, 90 34, 146 5"
+            stroke="#3F6E5A"
+            stroke-width="2.5"
+            stroke-linecap="round"></path>
+          <circle cx="146" cy="5" r="3.5" fill="#C96F4A"></circle>
+        </svg>
+        <p class="n-sign">—— 超纯</p>
+      </div>
+      <div
+        class="char"
+        id="char"
+        role="img"
+        aria-label="超纯的 IP 形象：戴黑色渔夫帽和方框眼镜的小人，手肘靠在便签右上角"
+      >
+        <picture>
+          <source srcset="/assets/char-lean.webp" type="image/webp" />
+          <img class="lean" src="/assets/char-lean.png" alt="" width="960" height="1280" fetchpriority="high" />
+        </picture>
+        <picture>
+          <source srcset="/assets/char-trip.webp" type="image/webp" />
+          <img class="trip" src="/assets/char-trip.png" alt="" width="960" height="1280" decoding="async" />
+        </picture>
+      </div>
+      <div class="bubble" id="bubble">诶——！</div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    var ELBOW_X = 0.258;
+    var ELBOW_Y = 0.408;
+    var IMG_RATIO = 864 / 1152;
+    var VISIBLE_RIGHT = 0.66;
+    var HEAD_TOP = 0.07;
+
+    var wrap = document.getElementById("noteWrap");
+    var note = document.getElementById("note");
+    var ch = document.getElementById("char");
+    var bubble = document.getElementById("bubble");
+
+    function noteAngle() {
+      var v = getComputedStyle(document.documentElement).getPropertyValue("--note-rot");
+      return ((parseFloat(v) || -2.5) * Math.PI) / 180;
+    }
+
+    function layout() {
+      var narrow = window.innerWidth <= 640;
+      var scaleK = narrow ? 1.55 : 1.9;
+      var stageEl = wrap.closest(".stage");
+      var avail = stageEl ? stageEl.clientWidth : wrap.parentElement.clientWidth;
+      var a = noteAngle();
+      var cosA = Math.cos(a),
+        sinA = Math.sin(a);
+      var noteAR = 1.05;
+
+      function fitNoteWidth(budget) {
+        var lo = 160,
+          hi = Math.max(161, budget);
+        for (var i = 0; i < 16; i++) {
+          var trial = (lo + hi) / 2;
+          var tH = trial * noteAR;
+          var tCornerX = trial / 2 + (trial / 2) * cosA - (-tH / 2) * sinA;
+          var tW = trial * scaleK * IMG_RATIO;
+          var visR = tCornerX - ELBOW_X * tW + tW * VISIBLE_RIGHT;
+          if (visR > budget) hi = trial;
+          else lo = trial;
+        }
+        return lo;
+      }
+      function rotatedLeftOverhang(tw, th) {
+        var cx = tw / 2,
+          cy = th / 2;
+        var pts = [
+          [0, 0],
+          [tw, 0],
+          [0, th],
+          [tw, th],
+        ];
+        var minX = 0;
+        for (var p = 0; p < 4; p++) {
+          var rx = pts[p][0] - cx,
+            ry = pts[p][1] - cy;
+          var x = cx + rx * cosA - ry * sinA;
+          if (x < minX) minX = x;
+        }
+        return Math.max(0, -minX);
+      }
+
+      var leftShift = 0;
+      if (narrow && avail) {
+        var fitted = fitNoteWidth(avail);
+        leftShift = rotatedLeftOverhang(fitted, fitted * noteAR);
+        if (leftShift > 0.5) fitted = fitNoteWidth(avail - leftShift);
+        if (Math.abs((parseFloat(note.style.width) || 0) - fitted) > 0.5) {
+          note.style.width = fitted + "px";
+        }
+      } else if (note.style.width) {
+        note.style.width = "";
+      }
+
+      var W = note.offsetWidth,
+        H = note.offsetHeight;
+      if (!W || !H) return;
+      var dx = W / 2,
+        dy = -H / 2;
+      var cornerX = W / 2 + dx * cosA - dy * sinA;
+      var cornerY = H / 2 + dx * sinA + dy * cosA;
+
+      var h = W * scaleK,
+        w = h * IMG_RATIO;
+      var left = cornerX - ELBOW_X * w;
+      var top = cornerY - ELBOW_Y * h;
+
+      ch.style.width = w + "px";
+      ch.style.height = h + "px";
+      ch.style.left = left + "px";
+      ch.style.top = top + "px";
+
+      var overhangR = Math.max(0, left + w * VISIBLE_RIGHT - W);
+      var overhangT = Math.max(0, -(top + HEAD_TOP * h));
+      if (narrow) {
+        wrap.style.marginRight = "0";
+        wrap.style.marginLeft = leftShift ? leftShift + "px" : "0";
+      } else {
+        wrap.style.marginRight = overhangR + "px";
+        wrap.style.marginLeft = "";
+      }
+      wrap.style.marginTop = overhangT + "px";
+
+      bubble.style.left = left + w * 0.02 + "px";
+      bubble.style.top = top + h * 0.06 + "px";
+
+      ch.classList.add("ready");
+    }
+
+    var pulled = false,
+      bubbleTimer = null;
+
+    function say(text, ms) {
+      clearTimeout(bubbleTimer);
+      bubble.textContent = text;
+      bubble.classList.add("show");
+      if (ms)
+        bubbleTimer = setTimeout(function () {
+          bubble.classList.remove("show");
+        }, ms);
+    }
+
+    function restart(el, cls) {
+      el.classList.remove("fall", "recover");
+      void el.offsetWidth;
+      el.classList.add(cls);
+    }
+
+    function pull() {
+      if (pulled) return;
+      pulled = true;
+      wrap.classList.add("pulled");
+      restart(ch, "fall");
+      setTimeout(function () {
+        if (pulled) say("诶——！");
+      }, 120);
+    }
+
+    function release() {
+      if (!pulled) return;
+      pulled = false;
+      wrap.classList.remove("pulled");
+      restart(ch, "recover");
+      say("呼…还好", 1100);
+      setTimeout(function () {
+        if (!pulled) ch.classList.remove("recover");
+      }, 800);
+    }
+
+    var canHover = window.matchMedia("(hover: hover)").matches;
+    if (canHover) {
+      wrap.addEventListener("mouseenter", pull);
+      wrap.addEventListener("mouseleave", release);
+    } else {
+      wrap.addEventListener("click", function () {
+        pulled ? release() : pull();
+      });
+    }
+
+    function imagesReady() {
+      layout();
+      ch.classList.add("prepared");
+    }
+    var imgs = ch.querySelectorAll("img"),
+      left = imgs.length;
+    if (!left) imagesReady();
+    imgs.forEach(function (img) {
+      if (img.complete) {
+        if (--left === 0) imagesReady();
+      } else {
+        img.addEventListener("load", function () {
+          if (--left === 0) imagesReady();
+        });
+        img.addEventListener("error", function () {
+          if (--left === 0) imagesReady();
+        });
+      }
+    });
+
+    layout();
+    window.addEventListener("resize", layout);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+    if (window.ResizeObserver) new ResizeObserver(layout).observe(note);
+  })();
+</script>
