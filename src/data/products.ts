@@ -26,4 +26,22 @@ export const products = [
     cover: "/assets/design/ticket.jpg",
     badge: "/assets/design/ticket-mark.ico",
   },
+  {
+    href: "https://github.com/dulk-dev/setup-dida-bot",
+    kicker: "GitHub",
+    title: "setup-dida-bot",
+    description: "合并微信拆分的滴答任务并唤醒 Grok Bot。",
+    cta: "在 GitHub 打开",
+    cover: "/assets/design/dida.jpg",
+    badge: "/assets/design/dida-mark.svg",
+  },
+  {
+    href: "https://github.com/dulk-dev/flomo-mcp",
+    kicker: "GitHub",
+    title: "flomo-mcp",
+    description: "读写个人 Flomo 的本机 MCP 服务。",
+    cta: "在 GitHub 打开",
+    cover: "/assets/design/flomo.jpg",
+    badge: "/assets/design/flomo-mark.png",
+  },
 ] as const;
