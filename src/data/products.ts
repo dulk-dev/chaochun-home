@@ -24,5 +24,6 @@ export const products = [
     description: "生成你的旅行纪念卡。",
     cta: "打开网站",
     cover: "/assets/design/ticket.jpg",
+    badge: "/assets/design/ticket-mark.ico",
   },
 ] as const;
