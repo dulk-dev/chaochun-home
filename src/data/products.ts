@@ -17,4 +17,12 @@ export const products = [
     cover: "/assets/design/beeppace.jpg",
     badge: "/assets/design/beeppace-mark.jpg",
   },
+  {
+    href: "https://ticket.chaochun.cc/",
+    kicker: "网站",
+    title: "旅行票根",
+    description: "生成你的旅行纪念卡。",
+    cta: "打开网站",
+    cover: "/assets/design/ticket.jpg",
+  },
 ] as const;
