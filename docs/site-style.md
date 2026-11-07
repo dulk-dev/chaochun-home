@@ -23,6 +23,8 @@
 
 自托管 Noto Sans SC（400 / 500）和 Noto Serif SC（700 / 900），文件在 `public/fonts/`，许可见同目录 `OFL.txt`。只打包页面上出现的字。标题用宋体 900，便签正文用 700，社交链接用黑体 500，其余用黑体 400。不要再引 Google Fonts。
 
+新字补进正在使用的那个字重，源文件用同一版 Noto CJK OTF（Sans 2.004 `NotoSansCJKsc-Regular`、Serif 2.003 `NotoSerifCJKsc-Black`），再用 `pyftsubset --flavor=woff2 --layout-features= --no-layout-closure` 打成 woff2。宋体 900 还要加 `--no-hinting --desubroutinize`。不要只把现有 woff2 再压一遍。
+
 ## 版式
 
 内容宽最多 1120px。
@@ -35,3 +37,5 @@
 ## 图
 
 人物图在 `public/assets/char-*`。卡片封面在 `public/assets/design/`。怎么画新封面见 [cover-design.md](cover-design.md)。三视图只作 IP 参考，在 [ip/](ip/)，不进页面。
+
+站点图标在 `public/` 根目录：`favicon.ico` 含 16/32/48，另有同尺寸 PNG，以及 180 的 `apple-touch-icon.png`。小图标是三视图正面的简化（黑渔夫帽、铜扣、方框眼镜）；180 是正面头部裁切。不要放回 Astro 默认图标。
