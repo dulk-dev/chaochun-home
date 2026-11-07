@@ -2,7 +2,16 @@
 
 首页卡片左侧封面的风格备忘。源文件放在 `public/assets/design/`，页面里用 `/assets/design/`。不要外链临时图床。
 
-右栏小角标可以另用 App 图标（见 `onion-mark.jpg`、`beeppace-mark.jpg`）。左侧大图是场景插画，不拿纯色块或单独图标充封面。
+左侧大图是场景插画，不拿纯色块或单独图标充封面。右栏小角标是另一张正方形小图，走数据里的可选 `badge`，不要拿封面凑。
+
+尺寸、圆角和间距只写在 `src/styles/global.css` 的 `.badge`，`CoverCard` 只负责把 `badge` 画成 22×22 的图：显示 22×22、圆角 6px、右边距 6px。背景做在图里并铺满正方形，圆角由样式裁切，不要在组件里另加底色。别的产品卡只加 `badge` 路径，不要改这套样式。
+
+| 文件 | 说明 |
+| --- | --- |
+| `onion-mark.jpg` | 洋葱圈运动计时的 App 图标，512×512 |
+| `beeppace-mark.jpg` | BeepPace 的 App 图标，512×512 |
+| `flomo-mark.png` | 原样来自 <https://flomoapp.com/images/logo-192x192.png>（首页 `rel="icon"` 192×192，与 apple-touch-icon `/images/logo.png` 是同一枚标记）。未改色、未重绘 |
+| `dida-mark.svg` | 没有现成图标。陶土底上的勾和天线，表示滴答和机器人 |
 
 ## 气质
 
@@ -40,6 +49,8 @@
 | `subtitle.jpg` | 胶片框里两个人对话，下面是空白字幕条和播放三角 |
 | `vibe.jpg` | 一张空白纸沿着坡道走到一座刚盖好的小屋 |
 | `grok.jpg` | 圆头小机器人坐着读一叠笔记，上面贴着黄便签 |
+| `dida.jpg` | 两叠纸条并成一叠，圆头小机器人坐在旁边 |
+| `flomo.jpg` | 一台空白屏幕的本机，旁边是备忘卡和笔 |
 
 ## 输出
 
