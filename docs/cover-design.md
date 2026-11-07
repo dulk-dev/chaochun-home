@@ -10,6 +10,7 @@
 | --- | --- |
 | `onion-mark.jpg` | 洋葱圈运动计时的 App 图标，512×512 |
 | `beeppace-mark.jpg` | BeepPace 的 App 图标，512×512 |
+| `ticket-mark.ico` | 旅行票根的站点图标，文件自带圆角深色底 |
 | `flomo-mark.png` | 原样来自 <https://flomoapp.com/images/logo-192x192.png>（首页 `rel="icon"` 192×192，与 apple-touch-icon `/images/logo.png` 是同一枚标记）。未改色、未重绘 |
 | `dida-mark.svg` | 没有现成图标。陶土底上的勾和天线，表示滴答和机器人 |
 
@@ -49,6 +50,7 @@
 | `subtitle.jpg` | 胶片框里两个人对话，下面是空白字幕条和播放三角 |
 | `vibe.jpg` | 一张空白纸沿着坡道走到一座刚盖好的小屋 |
 | `grok.jpg` | 圆头小机器人坐着读一叠笔记，上面贴着黄便签 |
+| `ticket.jpg` | 桌上摊开一张空白旅行票根，旁边是一枚小邮票和折好的地图 |
 | `dida.jpg` | 两叠纸条并成一叠，圆头小机器人坐在旁边 |
 | `flomo.jpg` | 一台空白屏幕的本机，旁边是备忘卡和笔 |
 
