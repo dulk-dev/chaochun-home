@@ -38,4 +38,4 @@
 
 人物图在 `public/assets/char-*`。卡片封面在 `public/assets/design/`。怎么画新封面见 [cover-design.md](cover-design.md)。三视图只作 IP 参考，在 [ip/](ip/)，不进页面。
 
-站点图标在 `public/` 根目录：`favicon.ico` 含 16/32/48，另有同尺寸 PNG，以及 180 的 `apple-touch-icon.png`。小图标是三视图正面的简化（黑渔夫帽、铜扣、方框眼镜）；180 是正面头部裁切。不要放回 Astro 默认图标。
+站点图标在 `public/` 根目录：`favicon.ico` 含 16/32/48，另有同尺寸 PNG，以及 180 的 `apple-touch-icon.png`。原图是按 `docs/ip/char-turnaround.jpg` 和首页 `public/assets/char-lean.png` 生的线稿头像，文件在 `docs/ip/site-icon-master.jpg`，不进页面。各尺寸只从这张图裁切、缩放，不要改成像素图或 SVG。不要放回 Astro 默认图标。
