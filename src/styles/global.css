@@ -498,6 +498,12 @@
       .card:focus-visible {
         outline-offset: 4px;
       }
+      .card-plain {
+        grid-template-columns: 1fr;
+      }
+      .card-plain .card-body {
+        padding: 8px 12px;
+      }
       .cover {
         display: block;
         overflow: hidden;
