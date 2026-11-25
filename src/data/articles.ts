@@ -21,7 +21,7 @@ export const articles = [
     title: "操作指南和教程",
     description: "",
     cta: "去 Flowus 阅读",
-    cover: "",
+    cover: "/assets/design/guide.jpg",
   },
   {
     href: "https://flowus.cn/chaochun/share/c5eb71d0-87b5-4608-91f3-535648002cd3?code=HS2DG2",
@@ -29,6 +29,6 @@ export const articles = [
     title: "Chaochun精选",
     description: "",
     cta: "去 Flowus 阅读",
-    cover: "",
+    cover: "/assets/design/picks.jpg",
   },
 ] as const;
