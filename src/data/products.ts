@@ -9,15 +9,6 @@ export const products = [
     badge: "/assets/design/onion-mark.jpg",
   },
   {
-    href: "https://apps.apple.com/cn/app/beeppace/id6821572710",
-    kicker: "App Store",
-    title: "BeepPace",
-    description: "用固定间隔的「嘀」声帮你控制跑步配速；适合教练/体育老师带一组人跑。",
-    cta: "在 App Store 打开",
-    cover: "/assets/design/beeppace.jpg",
-    badge: "/assets/design/beeppace-mark.jpg",
-  },
-  {
     href: "https://ticket.chaochun.cc/",
     kicker: "网站",
     title: "旅行票根",

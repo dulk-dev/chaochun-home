@@ -2,7 +2,7 @@
 
 [chaochun.cc](https://chaochun.cc) 个人主页。Astro 静态站，部署在 Cloudflare Workers Assets。
 
-首页自上而下：顶栏锚点（产品 / Skills / 文章）、Hero（口号、社交入口、黄便签）、三个分区的两列卡片。长文在 Flowus。
+首页自上而下：顶栏锚点（文章 / 产品 / Skills）、Hero（口号、社交入口、黄便签）、三个分区的两列卡片。长文在 Flowus。
 
 ## 技术栈
 
